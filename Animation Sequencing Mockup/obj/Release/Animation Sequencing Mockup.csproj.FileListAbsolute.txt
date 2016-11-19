@@ -1,0 +1,72 @@
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Animation Sequencing Mockup.exe.config
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Animation Sequencing Mockup.exe
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Animation Sequencing Mockup.pdb
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\MahApps.Metro.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\System.Windows.Interactivity.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Xceed.Wpf.AvalonDock.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Xceed.Wpf.DataGrid.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Xceed.Wpf.Toolkit.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\MahApps.Metro.pdb
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\MahApps.Metro.xml
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\de\Xceed.Wpf.AvalonDock.resources.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\es\Xceed.Wpf.AvalonDock.resources.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\fr\Xceed.Wpf.AvalonDock.resources.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\hu\Xceed.Wpf.AvalonDock.resources.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\it\Xceed.Wpf.AvalonDock.resources.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\ro\Xceed.Wpf.AvalonDock.resources.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\ru\Xceed.Wpf.AvalonDock.resources.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\sv\Xceed.Wpf.AvalonDock.resources.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\MainWindow.g.cs
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\App.g.cs
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup_MarkupCompile.cache
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup_MarkupCompile.lref
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\App.baml
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\MainWindow.baml
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup.g.resources
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation_Sequencing_Mockup.Properties.Resources.resources
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup.csproj.GenerateResource.Cache
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup.exe
+c:\users\ashot\documents\visual studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup.pdb
+C:\Users\Ashot\Documents\Visual Studio 2015\Projects\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup.csprojResolveAssemblyReference.cache
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Animation Sequencing Mockup.exe.config
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup.exe
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup.pdb
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Animation Sequencing Mockup.exe
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Animation Sequencing Mockup.pdb
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\MahApps.Metro.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\System.Windows.Interactivity.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Xceed.Wpf.AvalonDock.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Xceed.Wpf.DataGrid.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Xceed.Wpf.Toolkit.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\MahApps.Metro.pdb
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\MahApps.Metro.xml
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup.csprojResolveAssemblyReference.cache
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\MainWindow.g.cs
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\App.g.cs
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup_MarkupCompile.cache
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup_MarkupCompile.lref
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\App.baml
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\MainWindow.baml
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup.g.resources
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation_Sequencing_Mockup.Properties.Resources.resources
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\obj\Release\Animation Sequencing Mockup.csproj.GenerateResource.Cache
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Newtonsoft.Json.dll
+C:\Users\Arman\Desktop\Animation Sequencing Mockup\Animation Sequencing Mockup\bin\Release\Newtonsoft.Json.xml
