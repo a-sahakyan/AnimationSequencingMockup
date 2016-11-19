@@ -83,7 +83,7 @@
                             <ListBoxItem Content="Education"></ListBoxItem>
                             <ListBoxItem Content="Fitness"></ListBoxItem>
                             <ListBoxItem Content="Pets"></ListBoxItem>
-                                <ListBoxItem Content="Holidays"></ListBoxItem>
+                            <ListBoxItem Content="Holidays"></ListBoxItem>
                         </ListBox>
                     </GroupBox>
                     <GroupBox Header="Total Time">
@@ -274,41 +274,39 @@
                                     </ContextMenu>
                                 </GroupBox.ContextMenu>
                                 <StackPanel Width="Auto">
-                                    <TextBox />
-                                    <WrapPanel>
+                                    <TextBox Name="whatTextBoxSequence1"/>
+                                    <WrapPanel Name="timeWrapPanelSequence1">
                                         <TextBlock Text="from" />
-                                        <TextBox Width="30" />
+                                        <TextBox Name="fromTextBoxSequence1" Width="30" />
                                         <TextBlock Text="to" />
-                                        <TextBox Width="30" />
+                                        <TextBox Name="toTextBoxSequence1" Width="30" />
                                         <TextBlock Text=", duration" />
-                                        <TextBox Width="30" />
+                                        <TextBox Name="durationTextBoxSequence1" Width="30" />
                                     </WrapPanel>
-                                    <ComboBox Text="Style" IsEditable="True">
+                                    <ComboBox Name="styleComboboxSequence1" Text="Style" IsEditable="True">
                                         <ComboBoxItem>
-                                            <CheckBox Content="2D" />
+                                        <CheckBox Content="2D" />
                                         </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="3D" />
+                                        <ComboBoxItem>
+                                        <CheckBox Content="Infographic" />
                                         </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Infographic" />
+                                        <ComboBoxItem>
+                                        <CheckBox Content="Whiteboard" />
                                         </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Whiteboard" />
+                                        <ComboBoxItem>
+                                        <CheckBox Content="Live Action" />
                                         </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Live Action" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
+                                        <ComboBoxItem>
                                             <CheckBox Content="Typography" />
                                         </ComboBoxItem>
-                                        <ComboBoxItem >
+                                        <ComboBoxItem>
                                             <CheckBox Content="Application Promo" />
                                         </ComboBoxItem>
-                                        <ComboBoxItem >
+                                        <ComboBoxItem>
                                             <CheckBox Content="Screencast" />
                                         </ComboBoxItem>
                                     </ComboBox>
+
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="2*" />
@@ -316,7 +314,7 @@
                                         </Grid.ColumnDefinitions>
                                         <WrapPanel Grid.Column="0">
                                             <Border BorderBrush="#c2c3c9" BorderThickness="1" Padding="2" Grid.Column="0" Grid.Row="1">
-                                                <ListBox>
+                                                <ListBox Name="voiceMusicListBoxSequence1">
                                                     <ListBoxItem Content="narator" />
                                                     <ListBoxItem Content="male voice actor" />
                                                     <ListBoxItem Content="female voice actor" />
@@ -324,12 +322,12 @@
                                             </Border>
                                         </WrapPanel>
                                         <StackPanel Grid.Column="1">
-                                            <xctk:IntegerUpDown Value="1" Increment="1" Maximum="10" Minimum="1" />
+                                            <xctk:IntegerUpDown Name="voiceMusicKitSequence1" Value="1" Increment="1" Maximum="10" Minimum="1" />
                                         </StackPanel>
                                     </Grid>
-                                    <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" Value="0" Increment="1" Maximum="5" Minimum="-5" />
-                                    
-                                    <RichTextBox x:Name="rtb" Height="70" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                                    <xctk:IntegerUpDown Name="energyKitSequence1" Grid.Row="5" Grid.Column="1" Value="0" Increment="1" Maximum="5" Minimum="-5" />
+
+                                    <RichTextBox x:Name="energyRichTextBoxSequence1" Height="70" ScrollViewer.VerticalScrollBarVisibility="Visible" >
                                         <FlowDocument Name="rtbFlowDoc" PageWidth="{Binding ElementName=rtb, Path=ActualWidth}" />
                                     </RichTextBox>
 
@@ -445,30 +443,14 @@
                                         <TextBox Width="30" />
                                     </WrapPanel>
                                     <ComboBox Text="Style" IsEditable="True">
-                                        <ComboBoxItem>
-                                            <CheckBox Content="2D" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="3D" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Infographic" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Whiteboard" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Live Action" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Typography" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Application Promo" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Screencast" />
-                                        </ComboBoxItem>
+                                        <CheckBox Content="2D" />
+                                        <CheckBox Content="3D" />
+                                        <CheckBox Content="Infographic" />
+                                        <CheckBox Content="Whiteboard" />
+                                        <CheckBox Content="Live Action" />
+                                        <CheckBox Content="Typography" />
+                                        <CheckBox Content="Application Promo" />
+                                        <CheckBox Content="Screencast" />
                                     </ComboBox>
                                     <Grid>
                                         <Grid.ColumnDefinitions>

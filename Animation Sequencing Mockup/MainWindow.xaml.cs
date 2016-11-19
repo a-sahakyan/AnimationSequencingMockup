@@ -19,7 +19,7 @@ namespace Animation_Sequencing_Mockup
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class  MainWindow
+    public partial class MainWindow
     {
         List<Actions> Data { get; set; }
 
@@ -198,6 +198,7 @@ namespace Animation_Sequencing_Mockup
         }
 
 
+
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             try
@@ -212,7 +213,6 @@ namespace Animation_Sequencing_Mockup
                 }
 
                 Actions action = new Actions();
-
                 List<CheckBox> checkedStyle = stylePanel.Children.OfType<CheckBox>().Where(x => x.IsChecked == true).ToList();
                 action.Style = new string[checkedStyle.Count];
                 int i = 0;
@@ -222,11 +222,13 @@ namespace Animation_Sequencing_Mockup
                     i++;
                 }
 
-                if (typeListBox.SelectedItem !=null)
+
+                if (typeListBox.SelectedItem != null)
                 {
                     action.Type = ((ListBoxItem)typeListBox.SelectedItem).Content.ToString();
                 }
-              
+
+
                 action.TotalTime = (double)totalTime.Value;
 
                 List<CheckBox> checkedTargetAudience = targetAudiencePanel.Children.OfType<CheckBox>().Where(x => x.IsChecked == true).ToList();
@@ -258,45 +260,67 @@ namespace Animation_Sequencing_Mockup
                     action.VoiceOver[i] = item.Content.ToString();
                     i++;
                 }
+                action.ColorScheme = new Color();
 
-
-                if (numbersColorSchemeListBox != null)
+                if (numbersColorSchemeListBox.SelectedItem != null)
                 {
-                    action.Numbers = ((ListBoxItem)numbersColorSchemeListBox.SelectedItem).Content.ToString();
-                }
-
-                if (yesOrNoColorSchemeListBox !=null)
-                {
-                    action.YesOrNo = ((ListBoxItem)yesOrNoColorSchemeListBox.SelectedItem).Content.ToString();
-                }
-
-                if (colorsColorSchemeListBox !=null)
-                {
-                    action.Colors = ((ListBoxItem)colorsColorSchemeListBox.SelectedItem).Content.ToString();
+                    action.ColorScheme.Numbers = ((ListBoxItem)numbersColorSchemeListBox.SelectedItem).Content.ToString();
                 }
 
 
-
-               
-
-
-
-
+                if (yesOrNoColorSchemeListBox.SelectedItem != null)
+                {
+                    action.ColorScheme.YesOrNo = ((ListBoxItem)yesOrNoColorSchemeListBox.SelectedItem).Content.ToString();
+                }
 
 
+                if (colorsColorSchemeListBox.SelectedItem != null)
+                {
+                    action.ColorScheme.Colors = ((ListBoxItem)colorsColorSchemeListBox.SelectedItem).Content.ToString();
+                }
+
+                List<CheckBox> checkedMusicVFX = musicFVXPanel.Children.OfType<CheckBox>().Where(x => x.IsChecked == true).ToList();
+                action.MusicVFX = new string[checkedMusicVFX.Count];
+
+                i = 0;
+                foreach (var item in checkedMusicVFX)
+                {
+                    action.MusicVFX[i] = item.Content.ToString();
+                    i++;
+                }
+
+                if (globalRatingListBox.SelectedItem != null)
+                {
+                    var globalRating = ((ListBoxItem)globalRatingListBox.SelectedItem).Content;
+                    action.GlobalRating =globalRating.ToString();
+                }
+
+                action.Sequence1 = new Introduction();
+
+                action.Sequence1.What = whatTextBoxSequence1.Text;
+                List<TextBox> timeTextBox = timeWrapPanelSequence1.Children.OfType<TextBox>().Where(x => x.Text != null).ToList();
+
+                action.Sequence1.Time = new string[timeTextBox.Count];
+
+                i = 0;
+                foreach (var item in timeTextBox)
+                {
+                    action.Sequence1.Time[i] = item.Text;
+                    i++;
+                }
+
+                action.Sequence1.Style = new List<string>();
+
+                foreach (var s in styleComboboxSequence1.Items)
+                {
+                    CheckBox checkBox = (s as ComboBoxItem).Content as CheckBox;
+                    if ((bool)(checkBox.IsChecked))
+                    {
+                        action.Sequence1.Style.Add(checkBox.Content.ToString());
+                    }
+                }
 
 
-
-
-
-
-
-
-
-
-
-
-                
 
 
 
@@ -329,38 +353,10 @@ namespace Animation_Sequencing_Mockup
 
 
 
-
-
-
-            //var contentss = virtualName.ContentStart.ToString();
-
-
-            //  string json = JsonConvert.SerializeObject(contentss);
-            //string writeJson = File.WriteAllText(@"Resources\Json.json");
-
-            //        try
-            //        {
-            //            //XamlReader.Load(stream) as UIElement
-            //            TextRange textRange = new TextRange(
-
-            //    rtb.Document.ContentStart,
-
-            //    rtb.Document.ContentEnd
-            //);
-            //            using (StreamWriter file = File.CreateText(@"Resources\Json.json"))
-            //            {
-            //                JsonSerializer serializer = new JsonSerializer();
-            //                serializer.Serialize(file,textRange.Text.ToString());
-            //            }
-            //        }
-            //        catch (Exception ex)
-            //        { 
-            //            MessageBox.Show(ex.Message);
-            //        }
-
-
         }
 
 
     }
 }
+
+

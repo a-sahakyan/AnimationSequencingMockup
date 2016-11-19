@@ -10,7 +10,7 @@ namespace Animation_Sequencing_Mockup
     {
         public string Numbers { get; set; }
         public string YesOrNo { get; set; }
-        public string Colors { get; set;}
+        public string Colors { get; set; }
 
     }
 }
