@@ -22,12 +22,14 @@ namespace Animation_Sequencing_Mockup
     public partial class MainWindow
     {
         List<Actions> Data { get; set; }
-
-
+        GroupBox groupBox3;
 
         public MainWindow()
         {
             InitializeComponent();
+            sequence3RemoveButton.IsEnabled = false;
+            sequence2RemoveButton.IsEnabled = false;
+            sequence1RemoveButton.IsEnabled = false;
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -86,10 +88,10 @@ namespace Animation_Sequencing_Mockup
 
             StringReader stringReader = new StringReader(groupXml);
             XmlReader xmlReader = XmlReader.Create(stringReader);
-            GroupBox groupBox = (GroupBox)XamlReader.Load(xmlReader);
+            GroupBox groupBox1 = (GroupBox)XamlReader.Load(xmlReader);
             int count = wrapPanel1.Children.Count;
-            groupBox.Header = "Sequence" + count.ToString();
-            wrapPanel1.Children.Insert(wrapPanel1.Children.Count - 1, groupBox);
+            groupBox1.Header = "Sequence" + count.ToString();
+            wrapPanel1.Children.Insert(wrapPanel1.Children.Count - 1, groupBox1);
 
             foreach (var v in wrapPanel2.Children)
             {
@@ -109,6 +111,14 @@ namespace Animation_Sequencing_Mockup
                     ((GroupBox)v).Header = "Sequence" + count.ToString();
                     count++;
                 }
+            }
+            if (wrapPanel1.Children.Count > 2)
+            {
+                sequence1RemoveButton.IsEnabled = true;
+            }
+            else
+            {
+                sequence1RemoveButton.IsEnabled = false;
             }
         }
 
@@ -133,6 +143,14 @@ namespace Animation_Sequencing_Mockup
                     count++;
                 }
             }
+            if (wrapPanel2.Children.Count > 2)
+            {
+                sequence2RemoveButton.IsEnabled = true;
+            }
+            else
+            {
+                sequence2RemoveButton.IsEnabled = false;
+            }
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -141,10 +159,18 @@ namespace Animation_Sequencing_Mockup
 
             StringReader stringReader = new StringReader(groupXml);
             XmlReader xmlReader = XmlReader.Create(stringReader);
-            GroupBox groupBox = (GroupBox)XamlReader.Load(xmlReader);
-            int count = wrapPanel1.Children.Count + wrapPanel2.Children.Count + wrapPanel3.Children.Count - 2;
-            groupBox.Header = "Sequence" + count.ToString();
-            wrapPanel3.Children.Insert(wrapPanel3.Children.Count - 1, groupBox);
+            groupBox3 = (GroupBox)XamlReader.Load(xmlReader);
+            int count = wrapPanel1.Children.Count + wrapPanel2.Children.Count + wrapPanel3.Children.Count - 3;
+            groupBox3.Header = "Sequence" + count.ToString();
+            wrapPanel3.Children.Insert(wrapPanel3.Children.Count - 1, groupBox3);
+            if (wrapPanel3.Children.Count > 2)
+            {
+                sequence3RemoveButton.IsEnabled = true;
+            }
+            else
+            {
+                sequence3RemoveButton.IsEnabled = false;
+            }
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -204,7 +230,7 @@ namespace Animation_Sequencing_Mockup
             try
             {
 
-                string path = @"C:\Users\Arman\Desktop\data.json";
+                string path = @"Resources\data.json";
                 string jsonFile = File.ReadAllText(path);
 
                 if (new FileInfo(path).Length != 0)
@@ -292,7 +318,7 @@ namespace Animation_Sequencing_Mockup
                 if (globalRatingListBox.SelectedItem != null)
                 {
                     var globalRating = ((ListBoxItem)globalRatingListBox.SelectedItem).Content;
-                    action.GlobalRating =globalRating.ToString();
+                    action.GlobalRating = globalRating.ToString();
                 }
 
                 action.Sequence1 = new Introduction();
@@ -320,8 +346,99 @@ namespace Animation_Sequencing_Mockup
                     }
                 }
 
+                if (voiceMusicListBoxSequence1.SelectedItem != null)
+                {
+                    var voiceMusic = ((ListBoxItem)voiceMusicListBoxSequence1.SelectedItem).Content;
+                    action.Sequence1.VoiceMusic = voiceMusic.ToString();
+                }
+
+                action.Sequence1.VoiceMusicKit = (int)voiceMusicKitSequence1.Value;
+
+                action.Sequence1.EnergyKit = (int)energyKitSequence1.Value;
+
+                string document = new TextRange(energyRichTextBoxSequence1.Document.ContentStart, energyRichTextBoxSequence1.Document.ContentEnd).Text;
+
+                action.Sequence1.Energy = document;
 
 
+                action.Sequence2 = new Solution();
+
+                action.Sequence2.What = whatTextBoxSequence2.Text;
+                List<TextBox> timeTextBox2 = timeWrapPanelSequence2.Children.OfType<TextBox>().Where(x => x.Text != null).ToList();
+
+                action.Sequence2.Time = new string[timeTextBox2.Count];
+
+                i = 0;
+                foreach (var item in timeTextBox2)
+                {
+                    action.Sequence2.Time[i] = item.Text;
+                    i++;
+                }
+
+                action.Sequence2.Style = new List<string>();
+
+                foreach (var s in styleComboBoxSequence2.Items)
+                {
+                    CheckBox checkBox = (s as ComboBoxItem).Content as CheckBox;
+                    if ((bool)(checkBox.IsChecked))
+                    {
+                        action.Sequence2.Style.Add(checkBox.Content.ToString());
+                    }
+                }
+
+                if (voiceMusicListBoxSequence2.SelectedItem != null)
+                {
+                    var voiceMusic = ((ListBoxItem)voiceMusicListBoxSequence2.SelectedItem).Content;
+                    action.Sequence2.VoiceMusic = voiceMusic.ToString();
+                }
+
+                action.Sequence2.VoiceMusicKit = (int)voiceMusicKitSequence2.Value;
+
+                action.Sequence2.EnergyKit = (int)energyKitSequence2.Value;
+
+                string document2 = new TextRange(energyRichTextBoxSequence2.Document.ContentStart, energyRichTextBoxSequence2.Document.ContentEnd).Text;
+
+                action.Sequence2.Energy = document2;
+
+
+                action.Sequence3 = new Conclusion();
+
+                action.Sequence3.What = whatTextBoxSequence3.Text;
+                List<TextBox> timeTextBox3 = timeWrapPanelSequence3.Children.OfType<TextBox>().Where(x => x.Text != null).ToList();
+
+                action.Sequence3.Time = new string[timeTextBox3.Count];
+
+                i = 0;
+                foreach (var item in timeTextBox3)
+                {
+                    action.Sequence3.Time[i] = item.Text;
+                    i++;
+                }
+
+                action.Sequence3.Style = new List<string>();
+
+                foreach (var s in styleComboBoxSequence3.Items)
+                {
+                    CheckBox checkBox = (s as ComboBoxItem).Content as CheckBox;
+                    if ((bool)(checkBox.IsChecked))
+                    {
+                        action.Sequence3.Style.Add(checkBox.Content.ToString());
+                    }
+                }
+
+                if (voiceMusicListBoxSequence3.SelectedItem != null)
+                {
+                    var voiceMusic = ((ListBoxItem)voiceMusicListBoxSequence3.SelectedItem).Content;
+                    action.Sequence3.VoiceMusic = voiceMusic.ToString();
+                }
+
+                action.Sequence3.VoiceMusicKit = (int)voiceMusicKitSequence3.Value;
+
+                action.Sequence3.EnergyKit = (int)energyKitSequence3.Value;
+
+                string document3 = new TextRange(energyRichTextBoxSequence3.Document.ContentStart, energyRichTextBoxSequence3.Document.ContentEnd).Text;
+
+                action.Sequence3.Energy = document3;
 
 
                 if (Data == null)
@@ -354,8 +471,74 @@ namespace Animation_Sequencing_Mockup
 
 
         }
+     
 
+        private void sequence3RemoveButtonClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                wrapPanel3.Children.RemoveAt(wrapPanel3.Children.Count - 2);
 
+                if (wrapPanel3.Children.Count ==3)
+                {
+                    
+                    sequence3RemoveButton.IsEnabled = false;
+                }
+                else
+                {
+                    sequence3RemoveButton.IsEnabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void sequence2RemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            wrapPanel2.Children.RemoveAt(wrapPanel2.Children.Count - 2);
+
+            if (wrapPanel2.Children.Count == 3)
+            {
+
+                sequence2RemoveButton.IsEnabled = false;
+            }
+            else
+            {
+                sequence2RemoveButton.IsEnabled = true;
+            }
+        }
+
+        private void sequence3RemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            wrapPanel3.Children.RemoveAt(wrapPanel3.Children.Count - 2);
+
+            if (wrapPanel3.Children.Count == 3)
+            {
+
+                sequence3RemoveButton.IsEnabled = false;
+            }
+            else
+            {
+                sequence3RemoveButton.IsEnabled = true;
+            }
+        }
+
+        private void sequence1RemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            wrapPanel1.Children.RemoveAt(wrapPanel1.Children.Count - 2);
+            if (wrapPanel1.Children.Count == 3)
+            {
+
+                sequence1RemoveButton.IsEnabled = false; 
+            }
+            else
+            {
+                sequence1RemoveButton.IsEnabled = true;
+            }
+        }
     }
 }
 

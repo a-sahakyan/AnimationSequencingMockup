@@ -285,16 +285,16 @@
                                     </WrapPanel>
                                     <ComboBox Name="styleComboboxSequence1" Text="Style" IsEditable="True">
                                         <ComboBoxItem>
-                                        <CheckBox Content="2D" />
+                                            <CheckBox Content="2D" />
                                         </ComboBoxItem>
                                         <ComboBoxItem>
-                                        <CheckBox Content="Infographic" />
+                                            <CheckBox Content="Infographic" />
                                         </ComboBoxItem>
                                         <ComboBoxItem>
-                                        <CheckBox Content="Whiteboard" />
+                                            <CheckBox Content="Whiteboard" />
                                         </ComboBoxItem>
                                         <ComboBoxItem>
-                                        <CheckBox Content="Live Action" />
+                                            <CheckBox Content="Live Action" />
                                         </ComboBoxItem>
                                         <ComboBoxItem>
                                             <CheckBox Content="Typography" />
@@ -336,6 +336,7 @@
                                 </StackPanel>
                             </GroupBox>
                             <Button Content="Add" Height="10" VerticalAlignment="Top" Click="Button_Click" />
+                            <Button Name="sequence1RemoveButton" Content="Remove" Height="10" VerticalAlignment="Top" Click="sequence1RemoveButton_Click"></Button>
                         </WrapPanel>
                     </GroupBox>
                     <GroupBox Header="Solution">
@@ -353,8 +354,8 @@
                         <WrapPanel x:Name="wrapPanel2">
                             <GroupBox x:Name="sequence2" Header="Sequence2">
                                 <StackPanel Width="Auto">
-                                    <TextBox />
-                                    <WrapPanel>
+                                    <TextBox Name="whatTextBoxSequence2" />
+                                    <WrapPanel Name="timeWrapPanelSequence2">
                                         <TextBlock Text="from" />
                                         <TextBox Width="30" />
                                         <TextBlock Text="to" />
@@ -362,7 +363,7 @@
                                         <TextBlock Text=", duration" />
                                         <TextBox Width="30" />
                                     </WrapPanel>
-                                    <ComboBox Text="Style" IsEditable="True">
+                                    <ComboBox Name="styleComboBoxSequence2" Text="Style" IsEditable="True">
                                         <ComboBoxItem>
                                             <CheckBox Content="2D" />
                                         </ComboBoxItem>
@@ -395,7 +396,7 @@
                                         </Grid.ColumnDefinitions>
                                         <WrapPanel Grid.Column="0">
                                             <Border BorderBrush="#c2c3c9" BorderThickness="1" Padding="2" Grid.Column="0" Grid.Row="1">
-                                                <ListBox>
+                                                <ListBox Name="voiceMusicListBoxSequence2">
                                                     <ListBoxItem Content="narator" />
                                                     <ListBoxItem Content="male voice actor" />
                                                     <ListBoxItem Content="female voice actor" />
@@ -403,12 +404,12 @@
                                             </Border>
                                         </WrapPanel>
                                         <StackPanel Grid.Column="1">
-                                            <xctk:IntegerUpDown Value="1" Increment="1" Maximum="10" Minimum="1" />
+                                            <xctk:IntegerUpDown Name="voiceMusicKitSequence2" Value="1" Increment="1" Maximum="10" Minimum="1" />
                                         </StackPanel>
                                     </Grid>
-                                    <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" Value="0" Increment="1" Maximum="5" Minimum="-5" />
+                                    <xctk:IntegerUpDown Name="energyKitSequence2" Grid.Row="5" Grid.Column="1" Value="0" Increment="1" Maximum="5" Minimum="-5" />
 
-                                    <RichTextBox x:Name="rtb1" Height="70" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                                    <RichTextBox x:Name="energyRichTextBoxSequence2" Height="70" ScrollViewer.VerticalScrollBarVisibility="Visible" >
                                         <FlowDocument Name="rtbFlowDoc1" PageWidth="{Binding ElementName=rtb1, Path=ActualWidth}" />
                                     </RichTextBox>
 
@@ -416,6 +417,7 @@
                                 </StackPanel>
                             </GroupBox>
                             <Button Content="Add" Height="10" VerticalAlignment="Top" Click="Button_Click_1" />
+                            <Button Name="sequence2RemoveButton" Content="Remove" Height="10" VerticalAlignment="Top" Click="sequence2RemoveButton_Click"></Button>
                         </WrapPanel>
                     </GroupBox>
                     <GroupBox Header="Conclusion">
@@ -433,8 +435,8 @@
                         <WrapPanel x:Name="wrapPanel3">
                             <GroupBox x:Name="sequence3" Header="Sequence3">
                                 <StackPanel Width="Auto">
-                                    <TextBox />
-                                    <WrapPanel>
+                                    <TextBox Name="whatTextBoxSequence3" />
+                                    <WrapPanel Name="timeWrapPanelSequence3">
                                         <TextBlock Text="from" />
                                         <TextBox Width="30" />
                                         <TextBlock Text="to" />
@@ -442,15 +444,31 @@
                                         <TextBlock Text=", duration" />
                                         <TextBox Width="30" />
                                     </WrapPanel>
-                                    <ComboBox Text="Style" IsEditable="True">
-                                        <CheckBox Content="2D" />
-                                        <CheckBox Content="3D" />
-                                        <CheckBox Content="Infographic" />
-                                        <CheckBox Content="Whiteboard" />
-                                        <CheckBox Content="Live Action" />
-                                        <CheckBox Content="Typography" />
-                                        <CheckBox Content="Application Promo" />
-                                        <CheckBox Content="Screencast" />
+                                    <ComboBox Name="styleComboBoxSequence3" Text="Style" IsEditable="True">
+                                        <ComboBoxItem>
+                                            <CheckBox Content="2D" />
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <CheckBox Content="3D" />
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <CheckBox Content="Infographic" />
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <CheckBox Content="Whiteboard" />
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <CheckBox Content="Live Action" />
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <CheckBox Content="Typography" />
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <CheckBox Content="Application Promo" />
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <CheckBox Content="Screencast" />
+                                        </ComboBoxItem>
                                     </ComboBox>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -459,7 +477,7 @@
                                         </Grid.ColumnDefinitions>
                                         <WrapPanel Grid.Column="0">
                                             <Border BorderBrush="#c2c3c9" BorderThickness="1" Padding="2" Grid.Column="0" Grid.Row="1">
-                                                <ListBox>
+                                                <ListBox Name="voiceMusicListBoxSequence3">
                                                     <ListBoxItem Content="narator" />
                                                     <ListBoxItem Content="male voice actor" />
                                                     <ListBoxItem Content="female voice actor" />
@@ -467,12 +485,12 @@
                                             </Border>
                                         </WrapPanel>
                                         <StackPanel Grid.Column="1">
-                                            <xctk:IntegerUpDown Value="1" Increment="1" Maximum="10" Minimum="1" />
+                                            <xctk:IntegerUpDown Name="voiceMusicKitSequence3" Value="1" Increment="1" Maximum="10" Minimum="1" />
                                         </StackPanel>
                                     </Grid>
-                                    <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" Value="0" Increment="1" Maximum="5" Minimum="-5" />
+                                    <xctk:IntegerUpDown Name="energyKitSequence3" Grid.Row="5" Grid.Column="1" Value="0" Increment="1" Maximum="5" Minimum="-5" />
 
-                                    <RichTextBox x:Name="rtb2" Height="70" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                                    <RichTextBox x:Name="energyRichTextBoxSequence3" Height="70" ScrollViewer.VerticalScrollBarVisibility="Visible" >
                                         <FlowDocument Name="rtbFlowDoc2" PageWidth="{Binding ElementName=rtb2, Path=ActualWidth}" />
                                     </RichTextBox>
 
@@ -480,6 +498,7 @@
                                 </StackPanel>
                             </GroupBox>
                             <Button Content="Add" Height="10" VerticalAlignment="Top" Click="Button_Click_2" />
+                            <Button Name="sequence3RemoveButton" Content="Remove" Height="10" VerticalAlignment="Top" Click="sequence3RemoveButton_Click"></Button>
                         </WrapPanel>
                     </GroupBox>
                 </WrapPanel>

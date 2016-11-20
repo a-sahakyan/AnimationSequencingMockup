@@ -19,5 +19,7 @@ namespace Animation_Sequencing_Mockup
         public string[] MusicVFX { get; set; }
         public string GlobalRating { get; set; }
         public Introduction Sequence1 { get; set; }
+        public Solution Sequence2 { get; set; }
+        public Conclusion Sequence3 { get; set; }
     }
 }

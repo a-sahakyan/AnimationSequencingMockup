@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Animation_Sequencing_Mockup
 {
-    public class Introduction
+   public class Conclusion
     {
         public string What { get; set; }
         public string[] Time { get; set; }
@@ -15,6 +15,5 @@ namespace Animation_Sequencing_Mockup
         public int? VoiceMusicKit { get; set; }
         public int? EnergyKit { get; set; }
         public string Energy { get; set; }
-
     }
 }
