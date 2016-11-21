@@ -2,34 +2,119 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using System.Xml;
 
 namespace Animation_Sequencing_Mockup
 {
+    public class MyList : List<string>
+    {
+        public override string ToString()
+        {
+            return "xxx";
+        }
+    }
+    public class TimeSec
+    {
+        public string From { get; set; }
+        public string To { get; set; }
+        public string Duration { get; set; }
+    }
+    public class VoiceMusic
+    {
+        public string Type { get; set; }
+        public double Level { get; set; }
+    }
+    public class SequenceInstance
+    {
+        public int Id { get; set; }
+        public SequenceInstance()
+        {
+            TimeSec = new TimeSec();
+            VoiceMusic = new VoiceMusic();
+            Style = new List<string> { };
+        }
+        public string What { get; set; }
+        public TimeSec TimeSec { get; set; }
+        public List<string> Style { get; set; }
+        public VoiceMusic VoiceMusic { get; set; }
+        public double Energy { get; set; }
+        public string Description { get; set; }
+    }
+    public class GroupInstance
+    {
+        public GroupInstance()
+        {
+            Sequences = new List<SequenceInstance> { };
+        }
+        public string Name { get; set; }
+        public List<SequenceInstance> Sequences { get; set; }
+    }
+    public class ColorScheme
+    {
+        public string Number { get; set; }
+        public string YesNo { get; set; }
+        public string Color { get; set; }
+        public override string ToString()
+        {
+            return $"Number {Number} \n {YesNo} \nColor {Color}";
+        }
+    }
+  
+    public class Data
+    {
+        public Data()
+        {
+            ColorScheme = new ColorScheme();
+            Groups = new List<GroupInstance> { };
+            Style = new MyList { };
+            TargetAudience = new List<string> { };
+            Purpose = new List<string> { };
+            VoiceOver = new List<string> { };
+            MusicVFX = new List<string> { };
+        }
+
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Link { get; set; }
+        public MyList Style { get; set; }
+        public string Type { get; set; }
+        public double TotalTime { get; set; }
+        public List<string> TargetAudience { get; set; }
+       
+        
+
+        public List<string> Purpose { get; set; }
+        public List<string> VoiceOver { get; set; }
+        public List<string> MusicVFX { get; set; }
+        public string GlobalRating { get; set; }
+        public ColorScheme ColorScheme { get; set; }
+        public List<GroupInstance> Groups { get; set; }
+
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
-        List<Actions> Data { get; set; }
-        GroupBox groupBox3;
-
         public MainWindow()
         {
             InitializeComponent();
-            sequence3RemoveButton.IsEnabled = false;
-            sequence2RemoveButton.IsEnabled = false;
-            sequence1RemoveButton.IsEnabled = false;
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -84,93 +169,69 @@ namespace Animation_Sequencing_Mockup
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string groupXml = XamlWriter.Save(sequence1);
+            //string groupXml = XamlWriter.Save(sequence1);
 
-            StringReader stringReader = new StringReader(groupXml);
-            XmlReader xmlReader = XmlReader.Create(stringReader);
-            GroupBox groupBox1 = (GroupBox)XamlReader.Load(xmlReader);
-            int count = wrapPanel1.Children.Count;
-            groupBox1.Header = "Sequence" + count.ToString();
-            wrapPanel1.Children.Insert(wrapPanel1.Children.Count - 1, groupBox1);
+            //StringReader stringReader = new StringReader(groupXml);
+            //XmlReader xmlReader = XmlReader.Create(stringReader);
+            //GroupBox groupBox = (GroupBox)XamlReader.Load(xmlReader);
+            //int count = wrapPanel1.Children.Count;
+            //groupBox.Header = "Sequence" + count.ToString();
+            //wrapPanel1.Children.Insert(wrapPanel1.Children.Count - 1, groupBox);
+            
+            //foreach(var v in wrapPanel2.Children)
+            //{
+            //    if (v is GroupBox)
+            //    {
+            //        ((GroupBox)v).Header = "Sequence" + (count + 1).ToString();
+            //        count++;
+            //    }
+            //}
 
-            foreach (var v in wrapPanel2.Children)
-            {
-                if (v is GroupBox)
-                {
-                    ((GroupBox)v).Header = "Sequence" + (count + 1).ToString();
-                    count++;
-                }
-            }
+            //count = wrapPanel1.Children.Count + wrapPanel2.Children.Count - 1;
 
-            count = wrapPanel1.Children.Count + wrapPanel2.Children.Count - 1;
-
-            foreach (var v in wrapPanel3.Children)
-            {
-                if (v is GroupBox)
-                {
-                    ((GroupBox)v).Header = "Sequence" + count.ToString();
-                    count++;
-                }
-            }
-            if (wrapPanel1.Children.Count > 2)
-            {
-                sequence1RemoveButton.IsEnabled = true;
-            }
-            else
-            {
-                sequence1RemoveButton.IsEnabled = false;
-            }
+            //foreach (var v in wrapPanel3.Children)
+            //{
+            //    if (v is GroupBox)
+            //    {
+            //        ((GroupBox)v).Header = "Sequence" + count.ToString();
+            //        count++;
+            //    }
+            //}
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            string groupXml = XamlWriter.Save(sequence2);
+            //string groupXml = XamlWriter.Save(sequence2);
 
-            StringReader stringReader = new StringReader(groupXml);
-            XmlReader xmlReader = XmlReader.Create(stringReader);
-            GroupBox groupBox = (GroupBox)XamlReader.Load(xmlReader);
-            int count = wrapPanel1.Children.Count + wrapPanel2.Children.Count - 1;
-            groupBox.Header = "Sequence" + count.ToString();
-            wrapPanel2.Children.Insert(wrapPanel2.Children.Count - 1, groupBox);
+            //StringReader stringReader = new StringReader(groupXml);
+            //XmlReader xmlReader = XmlReader.Create(stringReader);
+            //GroupBox groupBox = (GroupBox)XamlReader.Load(xmlReader);
+            //int count = wrapPanel1.Children.Count + wrapPanel2.Children.Count - 1;
+            //groupBox.Header = "Sequence" + count.ToString();
+            //wrapPanel2.Children.Insert(wrapPanel2.Children.Count - 1, groupBox);
 
-            count = wrapPanel1.Children.Count + wrapPanel2.Children.Count - 1;
+            //count = wrapPanel1.Children.Count + wrapPanel2.Children.Count - 1;
 
-            foreach (var v in wrapPanel3.Children)
-            {
-                if (v is GroupBox)
-                {
-                    ((GroupBox)v).Header = "Sequence" + count.ToString();
-                    count++;
-                }
-            }
-            if (wrapPanel2.Children.Count > 2)
-            {
-                sequence2RemoveButton.IsEnabled = true;
-            }
-            else
-            {
-                sequence2RemoveButton.IsEnabled = false;
-            }
+            //foreach (var v in wrapPanel3.Children)
+            //{
+            //    if (v is GroupBox)
+            //    {
+            //        ((GroupBox)v).Header = "Sequence" + count.ToString();
+            //        count++;
+            //    }
+            //}
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            string groupXml = XamlWriter.Save(sequence3);
+            //string groupXml = XamlWriter.Save(sequence3);
 
-            StringReader stringReader = new StringReader(groupXml);
-            XmlReader xmlReader = XmlReader.Create(stringReader);
-            groupBox3 = (GroupBox)XamlReader.Load(xmlReader);
-            int count = wrapPanel1.Children.Count + wrapPanel2.Children.Count + wrapPanel3.Children.Count - 3;
-            groupBox3.Header = "Sequence" + count.ToString();
-            wrapPanel3.Children.Insert(wrapPanel3.Children.Count - 1, groupBox3);
-            if (wrapPanel3.Children.Count > 2)
-            {
-                sequence3RemoveButton.IsEnabled = true;
-            }
-            else
-            {
-                sequence3RemoveButton.IsEnabled = false;
-            }
+            //StringReader stringReader = new StringReader(groupXml);
+            //XmlReader xmlReader = XmlReader.Create(stringReader);
+            //GroupBox groupBox = (GroupBox)XamlReader.Load(xmlReader);
+            //int count = wrapPanel1.Children.Count + wrapPanel2.Children.Count + wrapPanel3.Children.Count - 2;
+            //groupBox.Header = "Sequence" + count.ToString();
+            //wrapPanel3.Children.Insert(wrapPanel3.Children.Count - 1, groupBox);
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -195,351 +256,168 @@ namespace Animation_Sequencing_Mockup
                 logo.BeginInit();
                 logo.UriSource = new Uri(filename);
                 logo.EndInit();
-                image.Source = logo;
+                //image.Source = logo;
             }
         }
 
-        //public static void WriteToJsonFile<T>(string filePath, T objectToWrite, bool append = false) where T : new()
-        //{
-        //    TextWriter writer = null;
-        //    try
-        //    {
-        //        var contentsToWriteToFile = JsonConvert.SerializeObject(objectToWrite);
-        //        writer = new StreamWriter(filePath, append);
-        //        writer.Write(contentsToWriteToFile);
-        //    }
-        //    finally
-        //    {
-        //        if (writer != null)
-        //            writer.Close();
-        //    }
-        //}
-        private void CheckButtonChecked(object sender, RoutedEventArgs e)
+        private void Add_Group(object sender, RoutedEventArgs e)
         {
-            var checkbutton = sender as CheckBox;
-            if (checkbutton == null)
-                return;
-            int intIndex = Convert.ToInt32(checkbutton.Content.ToString());
-            MessageBox.Show(intIndex.ToString(CultureInfo.InvariantCulture));
+            ParentGroup p = new ParentGroup();
+            rootWrapPanel.Children.Add(p);
         }
 
-
-
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private MyList GetCheckedValues(UIElementCollection elements)
         {
+            MyList list = new MyList { };
+            foreach(var e in elements)
+            {
+                CheckBox c = e as CheckBox;
+                if ((bool)c.IsChecked)
+                {
+                    list.Add(c.Content.ToString());
+                }
+            }
+            return list;
+        }
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            string content = "";
             try
             {
-
-                string path = @"Resources\data.json";
-                string jsonFile = File.ReadAllText(path);
-
-                if (new FileInfo(path).Length != 0)
-                {
-                    Data = JsonConvert.DeserializeObject<List<Actions>>(jsonFile);
-                }
-
-                Actions action = new Actions();
-                List<CheckBox> checkedStyle = stylePanel.Children.OfType<CheckBox>().Where(x => x.IsChecked == true).ToList();
-                action.Style = new string[checkedStyle.Count];
-                int i = 0;
-                foreach (var item in checkedStyle)
-                {
-                    action.Style[i] = item.Content.ToString();
-                    i++;
-                }
-
-
-                if (typeListBox.SelectedItem != null)
-                {
-                    action.Type = ((ListBoxItem)typeListBox.SelectedItem).Content.ToString();
-                }
-
-
-                action.TotalTime = (double)totalTime.Value;
-
-                List<CheckBox> checkedTargetAudience = targetAudiencePanel.Children.OfType<CheckBox>().Where(x => x.IsChecked == true).ToList();
-                action.TargetAudience = new string[checkedTargetAudience.Count];
-
-                i = 0;
-                foreach (var item in checkedTargetAudience)
-                {
-                    action.TargetAudience[i] = item.Content.ToString();
-                    i++;
-                }
-
-                List<CheckBox> checkedPurpose = purposePanel.Children.OfType<CheckBox>().Where(x => x.IsChecked == true).ToList();
-                action.Purpose = new string[checkedPurpose.Count];
-
-                i = 0;
-                foreach (var item in checkedPurpose)
-                {
-                    action.Purpose[i] = item.Content.ToString();
-                    i++;
-                }
-
-                List<CheckBox> checkedVoiceOver = voiceOverPanel.Children.OfType<CheckBox>().Where(x => x.IsChecked == true).ToList();
-                action.VoiceOver = new string[checkedVoiceOver.Count];
-
-                i = 0;
-                foreach (var item in checkedVoiceOver)
-                {
-                    action.VoiceOver[i] = item.Content.ToString();
-                    i++;
-                }
-                action.ColorScheme = new Color();
-
-                if (numbersColorSchemeListBox.SelectedItem != null)
-                {
-                    action.ColorScheme.Numbers = ((ListBoxItem)numbersColorSchemeListBox.SelectedItem).Content.ToString();
-                }
-
-
-                if (yesOrNoColorSchemeListBox.SelectedItem != null)
-                {
-                    action.ColorScheme.YesOrNo = ((ListBoxItem)yesOrNoColorSchemeListBox.SelectedItem).Content.ToString();
-                }
-
-
-                if (colorsColorSchemeListBox.SelectedItem != null)
-                {
-                    action.ColorScheme.Colors = ((ListBoxItem)colorsColorSchemeListBox.SelectedItem).Content.ToString();
-                }
-
-                List<CheckBox> checkedMusicVFX = musicFVXPanel.Children.OfType<CheckBox>().Where(x => x.IsChecked == true).ToList();
-                action.MusicVFX = new string[checkedMusicVFX.Count];
-
-                i = 0;
-                foreach (var item in checkedMusicVFX)
-                {
-                    action.MusicVFX[i] = item.Content.ToString();
-                    i++;
-                }
-
-                if (globalRatingListBox.SelectedItem != null)
-                {
-                    var globalRating = ((ListBoxItem)globalRatingListBox.SelectedItem).Content;
-                    action.GlobalRating = globalRating.ToString();
-                }
-
-                action.Sequence1 = new Introduction();
-
-                action.Sequence1.What = whatTextBoxSequence1.Text;
-                List<TextBox> timeTextBox = timeWrapPanelSequence1.Children.OfType<TextBox>().Where(x => x.Text != null).ToList();
-
-                action.Sequence1.Time = new string[timeTextBox.Count];
-
-                i = 0;
-                foreach (var item in timeTextBox)
-                {
-                    action.Sequence1.Time[i] = item.Text;
-                    i++;
-                }
-
-                action.Sequence1.Style = new List<string>();
-
-                foreach (var s in styleComboboxSequence1.Items)
-                {
-                    CheckBox checkBox = (s as ComboBoxItem).Content as CheckBox;
-                    if ((bool)(checkBox.IsChecked))
-                    {
-                        action.Sequence1.Style.Add(checkBox.Content.ToString());
-                    }
-                }
-
-                if (voiceMusicListBoxSequence1.SelectedItem != null)
-                {
-                    var voiceMusic = ((ListBoxItem)voiceMusicListBoxSequence1.SelectedItem).Content;
-                    action.Sequence1.VoiceMusic = voiceMusic.ToString();
-                }
-
-                action.Sequence1.VoiceMusicKit = (int)voiceMusicKitSequence1.Value;
-
-                action.Sequence1.EnergyKit = (int)energyKitSequence1.Value;
-
-                string document = new TextRange(energyRichTextBoxSequence1.Document.ContentStart, energyRichTextBoxSequence1.Document.ContentEnd).Text;
-
-                action.Sequence1.Energy = document;
-
-
-                action.Sequence2 = new Solution();
-
-                action.Sequence2.What = whatTextBoxSequence2.Text;
-                List<TextBox> timeTextBox2 = timeWrapPanelSequence2.Children.OfType<TextBox>().Where(x => x.Text != null).ToList();
-
-                action.Sequence2.Time = new string[timeTextBox2.Count];
-
-                i = 0;
-                foreach (var item in timeTextBox2)
-                {
-                    action.Sequence2.Time[i] = item.Text;
-                    i++;
-                }
-
-                action.Sequence2.Style = new List<string>();
-
-                foreach (var s in styleComboBoxSequence2.Items)
-                {
-                    CheckBox checkBox = (s as ComboBoxItem).Content as CheckBox;
-                    if ((bool)(checkBox.IsChecked))
-                    {
-                        action.Sequence2.Style.Add(checkBox.Content.ToString());
-                    }
-                }
-
-                if (voiceMusicListBoxSequence2.SelectedItem != null)
-                {
-                    var voiceMusic = ((ListBoxItem)voiceMusicListBoxSequence2.SelectedItem).Content;
-                    action.Sequence2.VoiceMusic = voiceMusic.ToString();
-                }
-
-                action.Sequence2.VoiceMusicKit = (int)voiceMusicKitSequence2.Value;
-
-                action.Sequence2.EnergyKit = (int)energyKitSequence2.Value;
-
-                string document2 = new TextRange(energyRichTextBoxSequence2.Document.ContentStart, energyRichTextBoxSequence2.Document.ContentEnd).Text;
-
-                action.Sequence2.Energy = document2;
-
-
-                action.Sequence3 = new Conclusion();
-
-                action.Sequence3.What = whatTextBoxSequence3.Text;
-                List<TextBox> timeTextBox3 = timeWrapPanelSequence3.Children.OfType<TextBox>().Where(x => x.Text != null).ToList();
-
-                action.Sequence3.Time = new string[timeTextBox3.Count];
-
-                i = 0;
-                foreach (var item in timeTextBox3)
-                {
-                    action.Sequence3.Time[i] = item.Text;
-                    i++;
-                }
-
-                action.Sequence3.Style = new List<string>();
-
-                foreach (var s in styleComboBoxSequence3.Items)
-                {
-                    CheckBox checkBox = (s as ComboBoxItem).Content as CheckBox;
-                    if ((bool)(checkBox.IsChecked))
-                    {
-                        action.Sequence3.Style.Add(checkBox.Content.ToString());
-                    }
-                }
-
-                if (voiceMusicListBoxSequence3.SelectedItem != null)
-                {
-                    var voiceMusic = ((ListBoxItem)voiceMusicListBoxSequence3.SelectedItem).Content;
-                    action.Sequence3.VoiceMusic = voiceMusic.ToString();
-                }
-
-                action.Sequence3.VoiceMusicKit = (int)voiceMusicKitSequence3.Value;
-
-                action.Sequence3.EnergyKit = (int)energyKitSequence3.Value;
-
-                string document3 = new TextRange(energyRichTextBoxSequence3.Document.ContentStart, energyRichTextBoxSequence3.Document.ContentEnd).Text;
-
-                action.Sequence3.Energy = document3;
-
-
-                if (Data == null)
-                {
-                    Data = new List<Actions> { };
-                    action.Id = 0;
-                }
-                else
-                {
-                    var id = Data.Max(x => x.Id);
-                    action.Id = ++id;
-                }
-
-                using (StreamWriter writer = new StreamWriter(path))
-                {
-                    Data.Add(action);
-                    JsonSerializer serializer = new JsonSerializer();
-                    serializer.Serialize(writer, Data);
-                }
-
-
-
-
+                StreamReader reader = new StreamReader(@"C:\Users\Arman\Desktop\data.json");
+                content = reader.ReadToEnd();
+                reader.Close();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-
-
-        }
-     
-
-        private void sequence3RemoveButtonClick(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                wrapPanel3.Children.RemoveAt(wrapPanel3.Children.Count - 2);
-
-                if (wrapPanel3.Children.Count ==3)
-                {
-                    
-                    sequence3RemoveButton.IsEnabled = false;
-                }
-                else
-                {
-                    sequence3RemoveButton.IsEnabled = true;
-                }
-            }
-            catch (Exception ex)
+            catch(Exception ex)
             {
 
-                MessageBox.Show(ex.Message);
             }
-        }
-
-        private void sequence2RemoveButton_Click(object sender, RoutedEventArgs e)
-        {
-            wrapPanel2.Children.RemoveAt(wrapPanel2.Children.Count - 2);
-
-            if (wrapPanel2.Children.Count == 3)
+            List<Data> d = JsonConvert.DeserializeObject<List<Data>>(content);
+            Data data = new Data();
+            if (d != null)
             {
-
-                sequence2RemoveButton.IsEnabled = false;
+                data.Id = d[d.Count - 1].Id + 1;
             }
             else
             {
-                sequence2RemoveButton.IsEnabled = true;
+                data.Id = 1;
             }
+            data.Title = title.Text;
+            data.Link = link.Text;
+            data.Style = GetCheckedValues(style.Children);
+            ListBox typeListBox = type as ListBox;
+            if (typeListBox.SelectedItem != null)
+            {
+                data.Type = (typeListBox.SelectedItem as ListBoxItem).Content.ToString();
+            }
+            data.TotalTime = (double)total_time.Value;
+            ListBox globalRating = global_rating as ListBox;
+            if (globalRating.SelectedItem != null)
+            {
+                data.GlobalRating = (globalRating.SelectedItem as ListBoxItem).Content.ToString();
+            }
+            data.TargetAudience = GetCheckedValues(target_audience.Children);
+            data.Purpose = GetCheckedValues(purpose.Children);
+            data.VoiceOver = GetCheckedValues(voiceover.Children);
+            data.MusicVFX = GetCheckedValues(music_vfx.Children);
+
+            ListBox colorSchemeNumber = color_scheme_number as ListBox;
+            if (colorSchemeNumber.SelectedItem != null)
+            {
+                data.ColorScheme.Number = (colorSchemeNumber.SelectedItem as ListBoxItem).Content.ToString();
+            }
+            ListBox colorSchemeYesNo = color_scheme_yesno as ListBox;
+            if (colorSchemeYesNo.SelectedItem != null)
+            {
+                data.ColorScheme.YesNo = (colorSchemeYesNo.SelectedItem as ListBoxItem).Content.ToString();
+            }
+            ListBox colorSchemeColor = color_scheme_color as ListBox;
+            if (colorSchemeColor.SelectedItem != null)
+            {
+                data.ColorScheme.Color = (colorSchemeColor.SelectedItem as ListBoxItem).Content.ToString();
+            }
+
+            List<GroupInstance> groups = new List<GroupInstance> { };
+            data.Groups = groups;
+            
+            var child = rootWrapPanel.Children;
+            for (int i = 1; i < child.Count; i++)
+            {
+                var parentGroups = child[i] as ParentGroup;
+                GroupInstance group = new GroupInstance();
+                groups.Add(group);
+                group.Name = parentGroups.group.Header.ToString();
+                var seq = parentGroups.rootWrapPanel.Children;
+                for (int j = 1; j < seq.Count; j++)
+                {
+                    Sequence s = seq[j] as Sequence;
+                    SequenceInstance sequenceInstance = new SequenceInstance();
+                    group.Sequences.Add(sequenceInstance);
+                    sequenceInstance.Id = j;
+                    // 1
+                    string what = s.what.Text;
+                    sequenceInstance.What = what;
+                    // 2
+                    string from = s.from.Text;
+                    sequenceInstance.TimeSec.From = from;
+                    // 3
+                    string to = s.to.Text;
+                    sequenceInstance.TimeSec.To = to;
+                    // 4
+                    string duration = s.duration.Text;
+                    sequenceInstance.TimeSec.Duration = duration;
+
+                    ComboBox style = s.style;
+                    // 5
+                    List<string> styles = new List<string> { };
+                    foreach(var item in style.Items)
+                    {
+                        CheckBox c = (item as ComboBoxItem).Content as CheckBox;
+                        if ((bool)c.IsChecked)
+                        {
+                            styles.Add(c.Content.ToString());
+                        }
+                    }
+                    sequenceInstance.Style = styles;
+
+                    ListBox l = s.voiceList;
+                    if (l.SelectedItem != null)
+                    {
+                        // 6
+                        string voiceListSelected = (l.SelectedValue as ListBoxItem).Content.ToString();
+                        sequenceInstance.VoiceMusic.Type = voiceListSelected;
+                    }
+
+                    var dropDown = s.voiceDropDown;
+                    // 7
+                    double dropDownValue = (double)dropDown.Value;
+                    sequenceInstance.VoiceMusic.Level = dropDownValue;
+
+                    double energy = (double)s.energy.Value;
+                    sequenceInstance.Energy = energy;
+
+                    TextRange textRange = new TextRange(s.rtb2.Document.ContentStart, s.rtb2.Document.ContentEnd);
+                    // 9
+                    string description = textRange.Text;
+                    sequenceInstance.Description = description;
+                }
+            }
+            if (d == null)
+            {
+                d = new List<Data> { };
+            }
+            d.Add(data);
+            string output = JsonConvert.SerializeObject(d);
+            StreamWriter writer = new StreamWriter(@"C:\Users\Arman\Desktop\data.json");
+            writer.Write(output);
+            writer.Close();
         }
 
-        private void sequence3RemoveButton_Click(object sender, RoutedEventArgs e)
+       
+        private void Show_Data(object sender, RoutedEventArgs e)
         {
-            wrapPanel3.Children.RemoveAt(wrapPanel3.Children.Count - 2);
-
-            if (wrapPanel3.Children.Count == 3)
-            {
-
-                sequence3RemoveButton.IsEnabled = false;
-            }
-            else
-            {
-                sequence3RemoveButton.IsEnabled = true;
-            }
-        }
-
-        private void sequence1RemoveButton_Click(object sender, RoutedEventArgs e)
-        {
-            wrapPanel1.Children.RemoveAt(wrapPanel1.Children.Count - 2);
-            if (wrapPanel1.Children.Count == 3)
-            {
-
-                sequence1RemoveButton.IsEnabled = false; 
-            }
-            else
-            {
-                sequence1RemoveButton.IsEnabled = true;
-            }
+            DataGridWindow win = new DataGridWindow();
+            win.Show();
         }
     }
 }
-
-

@@ -9,7 +9,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
         Title="Animation Sequencing" Height="700" Width="1250">
-    <Grid Name="gridShow">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -34,8 +34,12 @@
                     <MenuItem Header="_Code" />
                     <MenuItem Header="_Open" />
                 </MenuItem>
-                <MenuItem Header="_Save" Click="MenuItem_Click_1">
+                <MenuItem Header="_Save" Click="Save_Click">
                 </MenuItem>
+                <MenuItem Header="Add Group" Click="Add_Group">
+                    
+                </MenuItem>
+                <MenuItem Header="Show Data" Click="Show_Data" />
             </Menu>
         </DockPanel>
         <Border Grid.Row="1" BorderThickness="2">
@@ -45,13 +49,13 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBox Text="Title" Grid.Column="0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"></TextBox>
-                    <TextBox Text="Link" Grid.Column="1" GotFocus="TextBox_GotFocus_1" LostFocus="TextBox_LostFocus_1"></TextBox>
+                    <TextBox x:Name="title" Text="Title" Grid.Column="0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"></TextBox>
+                    <TextBox x:Name="link" Text="Link" Grid.Column="1" GotFocus="TextBox_GotFocus_1" LostFocus="TextBox_LostFocus_1"></TextBox>
                 </Grid>
                 <WrapPanel VerticalAlignment="Top" DockPanel.Dock="Left">
                     <GroupBox Header="Style" HorizontalAlignment="Left">
-                        <StackPanel Name="stylePanel">
-                            <CheckBox Name="combobox" Content="2D" />
+                        <StackPanel x:Name="style">
+                            <CheckBox Content="2D" />
                             <CheckBox Content="3D" />
                             <CheckBox Content="Infographic" />
                             <CheckBox Content="Whiteboard" />
@@ -61,9 +65,10 @@
                             <CheckBox Content="Screencast" />
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox Name="typeGroupBox" Header="Type">
-                        <ListBox Name="typeListBox">
-                            <ListBoxItem Name="typeListBoxItem" Content="Real Estate"></ListBoxItem>
+                    <GroupBox Header="Type">
+                        <ListBox x:Name="type">
+                            <ListBoxItem Content="Business"></ListBoxItem>
+                            <ListBoxItem Content="Real Estate"></ListBoxItem>
                             <ListBoxItem Content="Self Promos"></ListBoxItem>
                             <ListBoxItem Content="Infographic"></ListBoxItem>
                             <ListBoxItem Content="HR Staff"></ListBoxItem>
@@ -87,18 +92,18 @@
                         </ListBox>
                     </GroupBox>
                     <GroupBox Header="Total Time">
-                        <xctk:DoubleUpDown Name="totalTime" Value="10" Increment="0.1" Maximum="10" Minimum="0" Height="30" />
+                        <xctk:DoubleUpDown x:Name="total_time" Value="10" Increment="0.1" Maximum="10" Minimum="0" Height="30" />
                     </GroupBox>
                     <GroupBox Header="Target Audience">
-                        <StackPanel Name="targetAudiencePanel">
+                        <StackPanel x:Name="target_audience">
                             <CheckBox Content="Business" />
                             <CheckBox Content="Customers"/>
                             <CheckBox Content="Students"/>
                             <CheckBox Content="Prospects"/>
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox Name="groupbox" Header="Purpose">
-                        <StackPanel Name="purposePanel" >
+                    <GroupBox Header="Purpose">
+                        <StackPanel x:Name="purpose">
                             <CheckBox Content="Promotion" />
                             <CheckBox Content="Education" />
                             <CheckBox Content="Instruction" />
@@ -107,15 +112,17 @@
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="Voiceover" Width="Auto">
-                        <StackPanel Name="voiceOverPanel">
+                        <StackPanel>
                             <Border BorderBrush="Brown" BorderThickness="1" Padding="2">
-                                <TextBlock Name="virtualName">
+                                <TextBlock>
                                 Global voiceover <LineBreak /> details
                                 </TextBlock>
                             </Border>
-                            <CheckBox Content="Narrator" />
-                            <CheckBox Content="Male Actor" />
-                            <CheckBox Content="Female Actor" />
+                            <StackPanel x:Name="voiceover">
+                                <CheckBox Content="Narrator" />
+                                <CheckBox Content="Male Actor" />
+                                <CheckBox Content="Female Actor" />
+                            </StackPanel>
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="Color Scheme">
@@ -137,7 +144,7 @@
                                 </TextBlock>
                             </Border>
                             <Border BorderBrush="#c2c3c9" BorderThickness="1" Padding="2" Grid.Column="0" Grid.Row="1">
-                                <ListBox Name="numbersColorSchemeListBox" >
+                                <ListBox x:Name="color_scheme_number">
                                     <ListBoxItem Content="1" />
                                     <ListBoxItem Content="2" />
                                     <ListBoxItem Content="3" />
@@ -161,13 +168,13 @@
                                 </ListBox>
                             </Border>
                             <Border BorderBrush="#c2c3c9" BorderThickness="1" Padding="2" Grid.Column="1" Grid.Row="1">
-                                <ListBox Name="yesOrNoColorSchemeListBox">
+                                <ListBox x:Name="color_scheme_yesno">
                                     <ListBoxItem Content="Yes" />
                                     <ListBoxItem Content="No" />
                                 </ListBox>
                             </Border>
                             <Border BorderBrush="#c2c3c9" BorderThickness="1" Padding="2" Grid.Row="2" Grid.ColumnSpan="2">
-                                <ListBox Name="colorsColorSchemeListBox" Grid.Column="0">
+                                <ListBox Grid.Column="0" x:Name="color_scheme_color">
                                     <ListBoxItem Content="Red" />
                                     <ListBoxItem Content="Yellow" />
                                     <ListBoxItem Content="Blue" />
@@ -183,16 +190,18 @@
                         </Grid>
                     </GroupBox>
                     <GroupBox Header="Music / VFX">
-                        <StackPanel Name="musicFVXPanel">
+                        <StackPanel>
                             <Border BorderBrush="Brown" BorderThickness="1" Padding="2">
                                 <TextBlock>
                                 Sound effects <LineBreak />
                                 Soundtracks
                                 </TextBlock>
                             </Border>
-                            <CheckBox Content="Sound Effects" />
-                            <CheckBox Content="Background Music" />
-                            <CheckBox Content="Voice Deforming Effects" />
+                            <StackPanel x:Name="music_vfx">
+                                <CheckBox Content="Sound Effects" />
+                                <CheckBox Content="Background Music" />
+                                <CheckBox Content="Voice Deforming Effects" />
+                            </StackPanel>
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="Global Rating">
@@ -209,7 +218,7 @@
                                 viewer (reaching it's purpose)
                                 </TextBlock>
                             </Border>
-                            <ListBox Name="globalRatingListBox" Grid.Row="1">
+                            <ListBox Grid.Row="1" x:Name="global_rating">
                                 <ListBoxItem Content="1" />
                                 <ListBoxItem Content="2" />
                                 <ListBoxItem Content="3" />
@@ -228,8 +237,8 @@
         </Border>
         <Border BorderThickness="2" Grid.Row="3">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="-4,0,4,0">
-                <WrapPanel>
-                    <Grid>
+                <WrapPanel x:Name="rootWrapPanel">
+                    <Grid x:Name="rootGrid">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
@@ -254,253 +263,6 @@
                         <TextBlock Grid.Row="5" HorizontalAlignment="Center" Text="Voice/Music" />
                         <TextBlock Grid.Row="8" HorizontalAlignment="Center" Text="Energy" />
                     </Grid>
-                    <GroupBox Header="Introducation">
-                        <GroupBox.Style>
-                            <Style TargetType="GroupBox">
-                                <Setter Property="HeaderTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding}" FontWeight="Bold"/>
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </GroupBox.Style>
-                        <WrapPanel x:Name="wrapPanel1">
-                            <GroupBox x:Name="sequence1" Header="Sequence1">
-                                <GroupBox.ContextMenu>
-                                    <ContextMenu>
-                                        <MenuItem Header="Browse" Click="MenuItem_Click"/>
-                                    </ContextMenu>
-                                </GroupBox.ContextMenu>
-                                <StackPanel Width="Auto">
-                                    <TextBox Name="whatTextBoxSequence1"/>
-                                    <WrapPanel Name="timeWrapPanelSequence1">
-                                        <TextBlock Text="from" />
-                                        <TextBox Name="fromTextBoxSequence1" Width="30" />
-                                        <TextBlock Text="to" />
-                                        <TextBox Name="toTextBoxSequence1" Width="30" />
-                                        <TextBlock Text=", duration" />
-                                        <TextBox Name="durationTextBoxSequence1" Width="30" />
-                                    </WrapPanel>
-                                    <ComboBox Name="styleComboboxSequence1" Text="Style" IsEditable="True">
-                                        <ComboBoxItem>
-                                            <CheckBox Content="2D" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <CheckBox Content="Infographic" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <CheckBox Content="Whiteboard" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <CheckBox Content="Live Action" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <CheckBox Content="Typography" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <CheckBox Content="Application Promo" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <CheckBox Content="Screencast" />
-                                        </ComboBoxItem>
-                                    </ComboBox>
-
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <WrapPanel Grid.Column="0">
-                                            <Border BorderBrush="#c2c3c9" BorderThickness="1" Padding="2" Grid.Column="0" Grid.Row="1">
-                                                <ListBox Name="voiceMusicListBoxSequence1">
-                                                    <ListBoxItem Content="narator" />
-                                                    <ListBoxItem Content="male voice actor" />
-                                                    <ListBoxItem Content="female voice actor" />
-                                                </ListBox>
-                                            </Border>
-                                        </WrapPanel>
-                                        <StackPanel Grid.Column="1">
-                                            <xctk:IntegerUpDown Name="voiceMusicKitSequence1" Value="1" Increment="1" Maximum="10" Minimum="1" />
-                                        </StackPanel>
-                                    </Grid>
-                                    <xctk:IntegerUpDown Name="energyKitSequence1" Grid.Row="5" Grid.Column="1" Value="0" Increment="1" Maximum="5" Minimum="-5" />
-
-                                    <RichTextBox x:Name="energyRichTextBoxSequence1" Height="70" ScrollViewer.VerticalScrollBarVisibility="Visible" >
-                                        <FlowDocument Name="rtbFlowDoc" PageWidth="{Binding ElementName=rtb, Path=ActualWidth}" />
-                                    </RichTextBox>
-
-                                    <Image x:Name="image" Grid.Row="7" VerticalAlignment="Bottom" Height="100" Grid.Column="1" >
-                                    </Image>
-                                </StackPanel>
-                            </GroupBox>
-                            <Button Content="Add" Height="10" VerticalAlignment="Top" Click="Button_Click" />
-                            <Button Name="sequence1RemoveButton" Content="Remove" Height="10" VerticalAlignment="Top" Click="sequence1RemoveButton_Click"></Button>
-                        </WrapPanel>
-                    </GroupBox>
-                    <GroupBox Header="Solution">
-                        <GroupBox.Style>
-                            <Style TargetType="GroupBox">
-                                <Setter Property="HeaderTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding}" FontWeight="Bold"/>
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </GroupBox.Style>
-                        <WrapPanel x:Name="wrapPanel2">
-                            <GroupBox x:Name="sequence2" Header="Sequence2">
-                                <StackPanel Width="Auto">
-                                    <TextBox Name="whatTextBoxSequence2" />
-                                    <WrapPanel Name="timeWrapPanelSequence2">
-                                        <TextBlock Text="from" />
-                                        <TextBox Width="30" />
-                                        <TextBlock Text="to" />
-                                        <TextBox Width="30" />
-                                        <TextBlock Text=", duration" />
-                                        <TextBox Width="30" />
-                                    </WrapPanel>
-                                    <ComboBox Name="styleComboBoxSequence2" Text="Style" IsEditable="True">
-                                        <ComboBoxItem>
-                                            <CheckBox Content="2D" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="3D" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Infographic" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Whiteboard" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Live Action" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Typography" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Application Promo" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem >
-                                            <CheckBox Content="Screencast" />
-                                        </ComboBoxItem>
-                                    </ComboBox>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <WrapPanel Grid.Column="0">
-                                            <Border BorderBrush="#c2c3c9" BorderThickness="1" Padding="2" Grid.Column="0" Grid.Row="1">
-                                                <ListBox Name="voiceMusicListBoxSequence2">
-                                                    <ListBoxItem Content="narator" />
-                                                    <ListBoxItem Content="male voice actor" />
-                                                    <ListBoxItem Content="female voice actor" />
-                                                </ListBox>
-                                            </Border>
-                                        </WrapPanel>
-                                        <StackPanel Grid.Column="1">
-                                            <xctk:IntegerUpDown Name="voiceMusicKitSequence2" Value="1" Increment="1" Maximum="10" Minimum="1" />
-                                        </StackPanel>
-                                    </Grid>
-                                    <xctk:IntegerUpDown Name="energyKitSequence2" Grid.Row="5" Grid.Column="1" Value="0" Increment="1" Maximum="5" Minimum="-5" />
-
-                                    <RichTextBox x:Name="energyRichTextBoxSequence2" Height="70" ScrollViewer.VerticalScrollBarVisibility="Visible" >
-                                        <FlowDocument Name="rtbFlowDoc1" PageWidth="{Binding ElementName=rtb1, Path=ActualWidth}" />
-                                    </RichTextBox>
-
-                                    <Image Grid.Row="7" VerticalAlignment="Bottom" Height="100" Grid.Column="1" />
-                                </StackPanel>
-                            </GroupBox>
-                            <Button Content="Add" Height="10" VerticalAlignment="Top" Click="Button_Click_1" />
-                            <Button Name="sequence2RemoveButton" Content="Remove" Height="10" VerticalAlignment="Top" Click="sequence2RemoveButton_Click"></Button>
-                        </WrapPanel>
-                    </GroupBox>
-                    <GroupBox Header="Conclusion">
-                        <GroupBox.Style>
-                            <Style TargetType="GroupBox">
-                                <Setter Property="HeaderTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding}" FontWeight="Bold"/>
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </GroupBox.Style>
-                        <WrapPanel x:Name="wrapPanel3">
-                            <GroupBox x:Name="sequence3" Header="Sequence3">
-                                <StackPanel Width="Auto">
-                                    <TextBox Name="whatTextBoxSequence3" />
-                                    <WrapPanel Name="timeWrapPanelSequence3">
-                                        <TextBlock Text="from" />
-                                        <TextBox Width="30" />
-                                        <TextBlock Text="to" />
-                                        <TextBox Width="30" />
-                                        <TextBlock Text=", duration" />
-                                        <TextBox Width="30" />
-                                    </WrapPanel>
-                                    <ComboBox Name="styleComboBoxSequence3" Text="Style" IsEditable="True">
-                                        <ComboBoxItem>
-                                            <CheckBox Content="2D" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <CheckBox Content="3D" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <CheckBox Content="Infographic" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <CheckBox Content="Whiteboard" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <CheckBox Content="Live Action" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <CheckBox Content="Typography" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <CheckBox Content="Application Promo" />
-                                        </ComboBoxItem>
-                                        <ComboBoxItem>
-                                            <CheckBox Content="Screencast" />
-                                        </ComboBoxItem>
-                                    </ComboBox>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                        <WrapPanel Grid.Column="0">
-                                            <Border BorderBrush="#c2c3c9" BorderThickness="1" Padding="2" Grid.Column="0" Grid.Row="1">
-                                                <ListBox Name="voiceMusicListBoxSequence3">
-                                                    <ListBoxItem Content="narator" />
-                                                    <ListBoxItem Content="male voice actor" />
-                                                    <ListBoxItem Content="female voice actor" />
-                                                </ListBox>
-                                            </Border>
-                                        </WrapPanel>
-                                        <StackPanel Grid.Column="1">
-                                            <xctk:IntegerUpDown Name="voiceMusicKitSequence3" Value="1" Increment="1" Maximum="10" Minimum="1" />
-                                        </StackPanel>
-                                    </Grid>
-                                    <xctk:IntegerUpDown Name="energyKitSequence3" Grid.Row="5" Grid.Column="1" Value="0" Increment="1" Maximum="5" Minimum="-5" />
-
-                                    <RichTextBox x:Name="energyRichTextBoxSequence3" Height="70" ScrollViewer.VerticalScrollBarVisibility="Visible" >
-                                        <FlowDocument Name="rtbFlowDoc2" PageWidth="{Binding ElementName=rtb2, Path=ActualWidth}" />
-                                    </RichTextBox>
-
-                                    <Image Grid.Row="7" VerticalAlignment="Bottom" Height="100" Grid.Column="1" />
-                                </StackPanel>
-                            </GroupBox>
-                            <Button Content="Add" Height="10" VerticalAlignment="Top" Click="Button_Click_2" />
-                            <Button Name="sequence3RemoveButton" Content="Remove" Height="10" VerticalAlignment="Top" Click="sequence3RemoveButton_Click"></Button>
-                        </WrapPanel>
-                    </GroupBox>
                 </WrapPanel>
             </ScrollViewer>
         </Border>
