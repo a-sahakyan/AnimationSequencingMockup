@@ -18,31 +18,24 @@ namespace Animation_Sequencing_Mockup
         public List<string> List { get; set; }
         public override string ToString()
         {
-            //string x = null;
-            //string result = null;
-            //foreach (var item in List)
-            //{
-            //    x += item + "\n";
-
-            //}
-
-            //if (result !=null)
-            //{
-            //    result = x.Remove(x.Length - 2);
-
-            //}
-            //else
-            //{
-            //    result = "";
-            //}
-            //return result;
             string x = "";
             for (int i = 0; i < List.Count-1; i++)
             {
                 x += List[i] + "\n";
             }
+            string result = "";
+            if (x!="")
+            {
+                result = x + List[List.Count - 1];
 
-            return $"{x + List[List.Count - 1]}";
+            }
+            else
+            {
+                result = x;
+            }
+
+
+            return result;
         }
     }
     public class TimeSec
@@ -84,10 +77,10 @@ namespace Animation_Sequencing_Mockup
     {
         public GroupInstance()
         {
-            Sequences = new MyList { };
+            Sequences = new List<SequenceInstance> { };
         }
         public string Name { get; set; }
-        public MyList Sequences { get; set; }
+        public List<SequenceInstance> Sequences { get; set; }
        
     }
     public class ColorScheme
@@ -106,7 +99,7 @@ namespace Animation_Sequencing_Mockup
         public Data()
         {
             ColorScheme = new ColorScheme();
-            Groups =new MyList { };
+            Groups =new List<GroupInstance> { };
             Styles = new MyList { };
             TargetAudience = new MyList { };
             Purpose = new MyList { };
@@ -129,7 +122,7 @@ namespace Animation_Sequencing_Mockup
         public MyList MusicVFX { get; set; }
         public string GlobalRating { get; set; }
         public ColorScheme ColorScheme { get; set; }
-        public MyList Groups { get; set; }
+        public List<GroupInstance> Groups { get; set; }
         
     }
     /// <summary>
@@ -365,22 +358,22 @@ namespace Animation_Sequencing_Mockup
                 data.ColorScheme.Color = (colorSchemeColor.SelectedItem as ListBoxItem).Content.ToString();
             }
 
-            MyList groups = new MyList { };
-            data.Groups = groups;
+            GroupInstance groups = new GroupInstance { };
+            data.Groups.Add(groups);
             
             var child = rootWrapPanel.Children;
             for (int i = 1; i < child.Count; i++)
             {
                 var parentGroups = child[i] as ParentGroup;
                 GroupInstance group = new GroupInstance();
-                groups.List.Add(group);
+                groups = group;
                 group.Name = parentGroups.group.Header.ToString();
                 var seq = parentGroups.rootWrapPanel.Children;
                 for (int j = 1; j < seq.Count; j++)
                 {
                     Sequence s = seq[j] as Sequence;
                     SequenceInstance sequenceInstance = new SequenceInstance();
-                    group.Sequences.List.Add(sequenceInstance);
+                    group.Sequences.Add(sequenceInstance);
                     sequenceInstance.Id = j;
                     // 1
                     string what = s.what.Text;
