@@ -31,16 +31,9 @@ namespace Animation_Sequencing_Mockup
             {
 
                 List<Data> d = JsonConvert.DeserializeObject<List<Data>>(jsonFile);
-                string[] result = new string[d.Count];
 
-                List<string> str = new List<string>()
-                {
-                    "a",
-                    "b",
-                };
 
                 dataGrid.ItemsSource = d;
-                List<Data> g = new List<Data>();
                 
 
             }

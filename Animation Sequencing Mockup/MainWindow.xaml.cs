@@ -3,30 +3,46 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml;
+
 
 namespace Animation_Sequencing_Mockup
+
 {
-    public class MyList : List<string>
+    public class MyList 
     {
+        public List<string> List { get; set; }
         public override string ToString()
         {
-            return "xxx";
+            //string x = null;
+            //string result = null;
+            //foreach (var item in List)
+            //{
+            //    x += item + "\n";
+
+            //}
+
+            //if (result !=null)
+            //{
+            //    result = x.Remove(x.Length - 2);
+
+            //}
+            //else
+            //{
+            //    result = "";
+            //}
+            //return result;
+            string x = "";
+            for (int i = 0; i < List.Count-1; i++)
+            {
+                x += List[i] + "\n";
+            }
+
+            return $"{x + List[List.Count - 1]}";
         }
     }
     public class TimeSec
@@ -34,11 +50,19 @@ namespace Animation_Sequencing_Mockup
         public string From { get; set; }
         public string To { get; set; }
         public string Duration { get; set; }
+        public override string ToString()
+        {
+            return $"{From}\n{To}\n{Duration}";
+        }
     }
     public class VoiceMusic
     {
         public string Type { get; set; }
         public double Level { get; set; }
+        public override string ToString()
+        {
+            return $"{Type}\n{Level}";
+        }
     }
     public class SequenceInstance
     {
@@ -60,10 +84,11 @@ namespace Animation_Sequencing_Mockup
     {
         public GroupInstance()
         {
-            Sequences = new List<SequenceInstance> { };
+            Sequences = new MyList { };
         }
         public string Name { get; set; }
-        public List<SequenceInstance> Sequences { get; set; }
+        public MyList Sequences { get; set; }
+       
     }
     public class ColorScheme
     {
@@ -81,31 +106,31 @@ namespace Animation_Sequencing_Mockup
         public Data()
         {
             ColorScheme = new ColorScheme();
-            Groups = new List<GroupInstance> { };
-            Style = new MyList { };
-            TargetAudience = new List<string> { };
-            Purpose = new List<string> { };
-            VoiceOver = new List<string> { };
-            MusicVFX = new List<string> { };
+            Groups =new MyList { };
+            Styles = new MyList { };
+            TargetAudience = new MyList { };
+            Purpose = new MyList { };
+            VoiceOver = new MyList { };
+            MusicVFX = new MyList { };
         }
 
         public int Id { get; set; }
         public string Title { get; set; }
         public string Link { get; set; }
-        public MyList Style { get; set; }
+        public MyList Styles { get; set; }
         public string Type { get; set; }
         public double TotalTime { get; set; }
-        public List<string> TargetAudience { get; set; }
+        public MyList TargetAudience { get; set; }
        
         
 
-        public List<string> Purpose { get; set; }
-        public List<string> VoiceOver { get; set; }
-        public List<string> MusicVFX { get; set; }
+        public MyList Purpose { get; set; }
+        public MyList VoiceOver { get; set; }
+        public MyList MusicVFX { get; set; }
         public string GlobalRating { get; set; }
         public ColorScheme ColorScheme { get; set; }
-        public List<GroupInstance> Groups { get; set; }
-
+        public MyList Groups { get; set; }
+        
     }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -266,9 +291,10 @@ namespace Animation_Sequencing_Mockup
             rootWrapPanel.Children.Add(p);
         }
 
-        private MyList GetCheckedValues(UIElementCollection elements)
+        private List<string> GetCheckedValues(UIElementCollection elements)
         {
-            MyList list = new MyList { };
+            List<string> list = new List<string> { };
+  
             foreach(var e in elements)
             {
                 CheckBox c = e as CheckBox;
@@ -287,16 +313,18 @@ namespace Animation_Sequencing_Mockup
                 StreamReader reader = new StreamReader(@"C:\Users\Arman\Desktop\data.json");
                 content = reader.ReadToEnd();
                 reader.Close();
+               
             }
             catch(Exception ex)
             {
 
             }
+               
             List<Data> d = JsonConvert.DeserializeObject<List<Data>>(content);
             Data data = new Data();
             if (d != null)
             {
-                data.Id = d[d.Count - 1].Id + 1;
+                data.Id = d[d.Count - 1].Id + 1;                         
             }
             else
             {
@@ -304,7 +332,7 @@ namespace Animation_Sequencing_Mockup
             }
             data.Title = title.Text;
             data.Link = link.Text;
-            data.Style = GetCheckedValues(style.Children);
+            data.Styles.List = GetCheckedValues(style.Children);
             ListBox typeListBox = type as ListBox;
             if (typeListBox.SelectedItem != null)
             {
@@ -316,10 +344,10 @@ namespace Animation_Sequencing_Mockup
             {
                 data.GlobalRating = (globalRating.SelectedItem as ListBoxItem).Content.ToString();
             }
-            data.TargetAudience = GetCheckedValues(target_audience.Children);
-            data.Purpose = GetCheckedValues(purpose.Children);
-            data.VoiceOver = GetCheckedValues(voiceover.Children);
-            data.MusicVFX = GetCheckedValues(music_vfx.Children);
+            data.TargetAudience.List = GetCheckedValues(target_audience.Children);
+            data.Purpose.List = GetCheckedValues(purpose.Children);
+            data.VoiceOver.List = GetCheckedValues(voiceover.Children);
+            data.MusicVFX.List = GetCheckedValues(music_vfx.Children);
 
             ListBox colorSchemeNumber = color_scheme_number as ListBox;
             if (colorSchemeNumber.SelectedItem != null)
@@ -337,7 +365,7 @@ namespace Animation_Sequencing_Mockup
                 data.ColorScheme.Color = (colorSchemeColor.SelectedItem as ListBoxItem).Content.ToString();
             }
 
-            List<GroupInstance> groups = new List<GroupInstance> { };
+            MyList groups = new MyList { };
             data.Groups = groups;
             
             var child = rootWrapPanel.Children;
@@ -345,14 +373,14 @@ namespace Animation_Sequencing_Mockup
             {
                 var parentGroups = child[i] as ParentGroup;
                 GroupInstance group = new GroupInstance();
-                groups.Add(group);
+                groups.List.Add(group);
                 group.Name = parentGroups.group.Header.ToString();
                 var seq = parentGroups.rootWrapPanel.Children;
                 for (int j = 1; j < seq.Count; j++)
                 {
                     Sequence s = seq[j] as Sequence;
                     SequenceInstance sequenceInstance = new SequenceInstance();
-                    group.Sequences.Add(sequenceInstance);
+                    group.Sequences.List.Add(sequenceInstance);
                     sequenceInstance.Id = j;
                     // 1
                     string what = s.what.Text;
