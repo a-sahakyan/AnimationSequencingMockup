@@ -8,7 +8,7 @@
         xmlns:s="clr-namespace:System;assembly=mscorlib"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="Animation Sequencing" Height="700" Width="1250">
+        Title="Animation Sequencing" Height="800" Width="1250">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -19,27 +19,14 @@
         <GridSplitter HorizontalAlignment="Stretch" Height="5" Grid.Row="2" Background="#41b1e1"/>
         <DockPanel Grid.Row="0">
             <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_File">
-                    <MenuItem Header="_New" />
-                    <MenuItem Header="_Open" />
-                    <MenuItem Header="_Save" />
-                    <Separator />
-                    <MenuItem Header="_Exit" />
-                </MenuItem>
-                <MenuItem Header="_Edit">
-                    <MenuItem Header="_Undo" />
-                    <MenuItem Header="_Redo" />
-                </MenuItem>
-                <MenuItem Header="_View">
-                    <MenuItem Header="_Code" />
-                    <MenuItem Header="_Open" />
+                <MenuItem Header="Show Data" Click="Show_Data">
                 </MenuItem>
                 <MenuItem Header="_Save" Click="Save_Click">
                 </MenuItem>
                 <MenuItem Header="Add Group" Click="Add_Group">
                     
                 </MenuItem>
-                <MenuItem Header="Show Data" Click="Show_Data" />
+                <MenuItem Header="Add Data" Click="AddData_Click"/>
             </Menu>
         </DockPanel>
         <Border Grid.Row="1" BorderThickness="2">
@@ -92,7 +79,7 @@
                         </ListBox>
                     </GroupBox>
                     <GroupBox Header="Total Time">
-                        <xctk:DoubleUpDown x:Name="total_time" Value="10" Increment="0.1" Maximum="10" Minimum="0" Height="30" />
+                        <xctk:DoubleUpDown x:Name="total_time" Value="10" Increment="1"  Minimum="0" Height="30" />
                     </GroupBox>
                     <GroupBox Header="Target Audience">
                         <StackPanel x:Name="target_audience">
@@ -174,7 +161,7 @@
                                 </ListBox>
                             </Border>
                             <Border BorderBrush="#c2c3c9" BorderThickness="1" Padding="2" Grid.Row="2" Grid.ColumnSpan="2">
-                                <ListBox Grid.Column="0" x:Name="color_scheme_color">
+                                <ListBox Grid.Column="0" x:Name="color_scheme_color" SelectionMode="Multiple" >
                                     <ListBoxItem Content="Red" />
                                     <ListBoxItem Content="Yellow" />
                                     <ListBoxItem Content="Blue" />
@@ -240,28 +227,23 @@
                 <WrapPanel x:Name="rootWrapPanel">
                     <Grid x:Name="rootGrid">
                         <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
+                            <RowDefinition Height="60" />
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="80" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="70"/>
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="What?" />
-                        <TextBlock Grid.Row="3" HorizontalAlignment="Center" Text="Time - sec" />
-                        <TextBlock Grid.Row="5" HorizontalAlignment="Center" Text="Voice/Music" />
-                        <TextBlock Grid.Row="8" HorizontalAlignment="Center" Text="Energy" />
+                        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="What?" />
+                        <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="Time - sec" />
+                        <TextBlock Grid.Row="3" HorizontalAlignment="Center" Text="Voice/Music" />
+                        <TextBlock Grid.Row="4" HorizontalAlignment="Center" Text="Energy" />
+                        <TextBlock Grid.Row="5" HorizontalAlignment="Center" Text="Description" />
+                        <TextBlock Grid.Row="6" HorizontalAlignment="Center" Text="Icon" />
+                        <TextBlock Grid.Row="7" HorizontalAlignment="Center" Text="Keywords" />
                     </Grid>
                 </WrapPanel>
             </ScrollViewer>

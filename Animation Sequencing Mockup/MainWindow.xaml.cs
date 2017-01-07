@@ -2,60 +2,37 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Markup;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
-
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Xml;
 
 namespace Animation_Sequencing_Mockup
-
 {
-    public class MyList 
-    {
-        public List<string> List { get; set; }
-        public override string ToString()
-        {
-            string x = "";
-            for (int i = 0; i < List.Count-1; i++)
-            {
-                x += List[i] + "\n";
-            }
-            string result = "";
-            if (x!="")
-            {
-                result = x + List[List.Count - 1];
-
-            }
-            else
-            {
-                result = x;
-            }
-
-
-            return result;
-        }
-    }
     public class TimeSec
     {
         public string From { get; set; }
         public string To { get; set; }
         public string Duration { get; set; }
-        public override string ToString()
-        {
-            return $"{From}\n{To}\n{Duration}";
-        }
     }
     public class VoiceMusic
     {
         public string Type { get; set; }
         public double Level { get; set; }
-        public override string ToString()
-        {
-            return $"{Type}\n{Level}";
-        }
     }
     public class SequenceInstance
     {
@@ -81,49 +58,48 @@ namespace Animation_Sequencing_Mockup
         }
         public string Name { get; set; }
         public List<SequenceInstance> Sequences { get; set; }
-       
     }
     public class ColorScheme
     {
         public string Number { get; set; }
         public string YesNo { get; set; }
         public string Color { get; set; }
-        public override string ToString()
-        {
-            return $"Number {Number} \n {YesNo} \nColor {Color}";
-        }
     }
-  
+    public class MyList
+    {
+        public MyList()
+        {
+            List = new List<string> { };
+        }
+
+        public List<string> List { get; set; }
+    }
     public class Data
     {
         public Data()
         {
             ColorScheme = new ColorScheme();
-            Groups =new List<GroupInstance> { };
-            Styles = new MyList { };
-            TargetAudience = new MyList { };
-            Purpose = new MyList { };
-            VoiceOver = new MyList { };
-            MusicVFX = new MyList { };
+            Groups = new List<GroupInstance> { };
+            Style = new List<string> { };
+            TargetAudience = new List<string> { };
+            Purpose = new List<string> { };
+            VoiceOver = new List<string> { };
+            MusicVFX = new List<string> { };
         }
 
         public int Id { get; set; }
         public string Title { get; set; }
         public string Link { get; set; }
-        public MyList Styles { get; set; }
+        public List<string> Style { get; set; }
         public string Type { get; set; }
-        public double TotalTime { get; set; }
-        public MyList TargetAudience { get; set; }
-       
-        
-
-        public MyList Purpose { get; set; }
-        public MyList VoiceOver { get; set; }
-        public MyList MusicVFX { get; set; }
+        public uint TotalTime { get; set; }
+        public List<string> TargetAudience { get; set; }
+        public List<string> Purpose { get; set; }
+        public List<string> VoiceOver { get; set; }
+        public List<string> MusicVFX { get; set; }
         public string GlobalRating { get; set; }
         public ColorScheme ColorScheme { get; set; }
         public List<GroupInstance> Groups { get; set; }
-        
     }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -195,7 +171,7 @@ namespace Animation_Sequencing_Mockup
             //int count = wrapPanel1.Children.Count;
             //groupBox.Header = "Sequence" + count.ToString();
             //wrapPanel1.Children.Insert(wrapPanel1.Children.Count - 1, groupBox);
-            
+
             //foreach(var v in wrapPanel2.Children)
             //{
             //    if (v is GroupBox)
@@ -287,8 +263,7 @@ namespace Animation_Sequencing_Mockup
         private List<string> GetCheckedValues(UIElementCollection elements)
         {
             List<string> list = new List<string> { };
-  
-            foreach(var e in elements)
+            foreach (var e in elements)
             {
                 CheckBox c = e as CheckBox;
                 if ((bool)c.IsChecked)
@@ -300,24 +275,29 @@ namespace Animation_Sequencing_Mockup
         }
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string directory = home + @"\AnimationSequencingData";
+            string file = directory + @"\data.json";
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
             string content = "";
             try
             {
-                StreamReader reader = new StreamReader(@"C:\Users\Arman\Desktop\data.json");
+                StreamReader reader = new StreamReader(file);
                 content = reader.ReadToEnd();
                 reader.Close();
-               
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
-               
             List<Data> d = JsonConvert.DeserializeObject<List<Data>>(content);
             Data data = new Data();
             if (d != null)
             {
-                data.Id = d[d.Count - 1].Id + 1;                         
+                data.Id = d[d.Count - 1].Id + 1;
             }
             else
             {
@@ -325,22 +305,22 @@ namespace Animation_Sequencing_Mockup
             }
             data.Title = title.Text;
             data.Link = link.Text;
-            data.Styles.List = GetCheckedValues(style.Children);
+            data.Style = GetCheckedValues(style.Children);
             ListBox typeListBox = type as ListBox;
             if (typeListBox.SelectedItem != null)
             {
                 data.Type = (typeListBox.SelectedItem as ListBoxItem).Content.ToString();
             }
-            data.TotalTime = (double)total_time.Value;
+            data.TotalTime = (uint)total_time.Value;
             ListBox globalRating = global_rating as ListBox;
             if (globalRating.SelectedItem != null)
             {
                 data.GlobalRating = (globalRating.SelectedItem as ListBoxItem).Content.ToString();
             }
-            data.TargetAudience.List = GetCheckedValues(target_audience.Children);
-            data.Purpose.List = GetCheckedValues(purpose.Children);
-            data.VoiceOver.List = GetCheckedValues(voiceover.Children);
-            data.MusicVFX.List = GetCheckedValues(music_vfx.Children);
+            data.TargetAudience = GetCheckedValues(target_audience.Children);
+            data.Purpose = GetCheckedValues(purpose.Children);
+            data.VoiceOver = GetCheckedValues(voiceover.Children);
+            data.MusicVFX = GetCheckedValues(music_vfx.Children);
 
             ListBox colorSchemeNumber = color_scheme_number as ListBox;
             if (colorSchemeNumber.SelectedItem != null)
@@ -355,18 +335,21 @@ namespace Animation_Sequencing_Mockup
             ListBox colorSchemeColor = color_scheme_color as ListBox;
             if (colorSchemeColor.SelectedItem != null)
             {
-                data.ColorScheme.Color = (colorSchemeColor.SelectedItem as ListBoxItem).Content.ToString();
+                foreach (var item in colorSchemeColor.SelectedItems)
+                {
+                    data.ColorScheme.Color += (item as ListBoxItem).Content.ToString() + "\n";
+                }
             }
 
-            GroupInstance groups = new GroupInstance { };
-            data.Groups.Add(groups);
-            
+            List<GroupInstance> groups = new List<GroupInstance> { };
+            data.Groups = groups;
+
             var child = rootWrapPanel.Children;
             for (int i = 1; i < child.Count; i++)
             {
                 var parentGroups = child[i] as ParentGroup;
                 GroupInstance group = new GroupInstance();
-                groups = group;
+                groups.Add(group);
                 group.Name = parentGroups.group.Header.ToString();
                 var seq = parentGroups.rootWrapPanel.Children;
                 for (int j = 1; j < seq.Count; j++)
@@ -391,7 +374,7 @@ namespace Animation_Sequencing_Mockup
                     ComboBox style = s.style;
                     // 5
                     List<string> styles = new List<string> { };
-                    foreach(var item in style.Items)
+                    foreach (var item in style.Items)
                     {
                         CheckBox c = (item as ComboBoxItem).Content as CheckBox;
                         if ((bool)c.IsChecked)
@@ -429,16 +412,95 @@ namespace Animation_Sequencing_Mockup
             }
             d.Add(data);
             string output = JsonConvert.SerializeObject(d);
-            StreamWriter writer = new StreamWriter(@"C:\Users\Arman\Desktop\data.json");
+            StreamWriter writer = new StreamWriter(file);
             writer.Write(output);
             writer.Close();
+            MessageBox.Show("Your data has been successfully saved.");
         }
 
-       
         private void Show_Data(object sender, RoutedEventArgs e)
         {
-            DataGridWindow win = new DataGridWindow();
-            win.Show();
+            DataView data = new DataView();
+            data.ShowDialog();
+        }
+
+
+
+        private void AddData_Click(object sender, RoutedEventArgs e)
+        {
+            string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string directory = home + @"\AnimationSequencingData";
+            string file = directory + @"\data.json";
+            string content = "";
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            try
+            {
+                StreamReader reader = new StreamReader(file);
+                content = reader.ReadToEnd();
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            List<Data> d = JsonConvert.DeserializeObject<List<Data>>(content);
+            int count = 1;
+
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.DefaultExt = ".json";
+            string jsonFile = "";
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
+            {
+                string fileName = dlg.FileName;
+
+                StreamReader sr = new StreamReader(fileName);
+                jsonFile = sr.ReadToEnd();
+                sr.Close();
+                List<Data> data = JsonConvert.DeserializeObject<List<Data>>(jsonFile);
+                if (d != null)
+                {
+                    for (int i = 0; i < data.Count; i++)
+                    {
+                        data[i].Id = d[d.Count - 1].Id + count++;
+                    }
+                }
+                else
+                {
+                    Data newData = new Data();
+                    d = new List<Data>(4);
+                    d.Add(newData);
+                    d[0].Id = 1;
+                    d.Remove(newData);
+                }
+
+
+
+
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+
+                        d.Add(item);
+                    }
+                    string output = JsonConvert.SerializeObject(d);
+
+                    StreamWriter writer = new StreamWriter(file);
+                    writer.Write(output);
+                    writer.Close();
+                    MessageBox.Show("Your data has been successfully added.");
+
+                }
+                else
+                {
+                    MessageBox.Show("there is no data");
+                }
+            }
         }
     }
 }

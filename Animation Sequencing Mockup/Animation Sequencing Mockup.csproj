@@ -91,19 +91,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataGridWindow.xaml.cs">
-      <DependentUpon>DataGridWindow.xaml</DependentUpon>
+    <Compile Include="DataView.xaml.cs">
+      <DependentUpon>DataView.xaml</DependentUpon>
     </Compile>
     <Compile Include="EditDialog.xaml.cs">
       <DependentUpon>EditDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Converter.cs" />
     <Compile Include="ParentGroup.xaml.cs">
       <DependentUpon>ParentGroup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sequence.xaml.cs">
       <DependentUpon>Sequence.xaml</DependentUpon>
     </Compile>
-    <Page Include="DataGridWindow.xaml">
+    <Page Include="DataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
