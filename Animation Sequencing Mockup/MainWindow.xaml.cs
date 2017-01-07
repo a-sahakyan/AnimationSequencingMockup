@@ -462,7 +462,7 @@ namespace Animation_Sequencing_Mockup
                 jsonFile = sr.ReadToEnd();
                 sr.Close();
                 List<Data> data = JsonConvert.DeserializeObject<List<Data>>(jsonFile);
-                if (d != null)
+                if (data != null && d!=null)
                 {
                     for (int i = 0; i < data.Count; i++)
                     {
@@ -472,7 +472,7 @@ namespace Animation_Sequencing_Mockup
                 else
                 {
                     Data newData = new Data();
-                    d = new List<Data>(4);
+                    d = new List<Data>();
                     d.Add(newData);
                     d[0].Id = 1;
                     d.Remove(newData);
