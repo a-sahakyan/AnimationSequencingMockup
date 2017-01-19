@@ -26,9 +26,13 @@ namespace Animation_Sequencing_Mockup
         public DataView()
         {
             InitializeComponent();
-            dataView.DataContext = this;
+            LoadData();
+        }
 
-            string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        public void LoadData()
+        {
+            dataView.DataContext = this;
+            string home = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string directory = home + @"\AnimationSequencingData";
             string file = directory + @"\data.json";
             string content = "";
@@ -52,6 +56,14 @@ namespace Animation_Sequencing_Mockup
             var handler = PropertyChanged;
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var Item = dataGrid.SelectedItem as Animation_Sequencing_Mockup.Data;
+            MainWindow window = new MainWindow(Item);
+            var result = window.ShowDialog();
+            LoadData();
         }
     }
 }

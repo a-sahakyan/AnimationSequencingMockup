@@ -18,15 +18,14 @@
         </Grid.RowDefinitions>
         <GridSplitter HorizontalAlignment="Stretch" Height="5" Grid.Row="2" Background="#41b1e1"/>
         <DockPanel Grid.Row="0">
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="Show Data" Click="Show_Data">
+            <Menu x:Name="menu" DockPanel.Dock="Top">
+                <MenuItem x:Name="show_data" Header="Show Data" Click="Show_Data">
                 </MenuItem>
                 <MenuItem Header="_Save" Click="Save_Click">
                 </MenuItem>
-                <MenuItem Header="Add Group" Click="Add_Group">
+                <MenuItem x:Name="add_group" Header="Add Group" Click="Add_Group">
                     
                 </MenuItem>
-                <MenuItem Header="Add Data" Click="AddData_Click"/>
             </Menu>
         </DockPanel>
         <Border Grid.Row="1" BorderThickness="2">
@@ -79,7 +78,7 @@
                         </ListBox>
                     </GroupBox>
                     <GroupBox Header="Total Time">
-                        <xctk:DoubleUpDown x:Name="total_time" Value="10" Increment="1"  Minimum="0" Height="30" />
+                        <xctk:DoubleUpDown x:Name="total_time" Value="10" Increment="0.1" Maximum="10" Minimum="0" Height="30" />
                     </GroupBox>
                     <GroupBox Header="Target Audience">
                         <StackPanel x:Name="target_audience">
@@ -161,7 +160,7 @@
                                 </ListBox>
                             </Border>
                             <Border BorderBrush="#c2c3c9" BorderThickness="1" Padding="2" Grid.Row="2" Grid.ColumnSpan="2">
-                                <ListBox Grid.Column="0" x:Name="color_scheme_color" SelectionMode="Multiple" >
+                                <ListBox Grid.Column="0" x:Name="color_scheme_color">
                                     <ListBoxItem Content="Red" />
                                     <ListBoxItem Content="Yellow" />
                                     <ListBoxItem Content="Blue" />

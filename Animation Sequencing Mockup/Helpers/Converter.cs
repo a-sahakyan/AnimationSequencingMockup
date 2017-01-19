@@ -18,14 +18,15 @@ namespace Animation_Sequencing_Mockup.Helpers
                 return "";
             var list = value as IEnumerable;
             string result = "";
+            
             foreach(var l in list)
             {
                 result = result + l.ToString() + "\r\n";
             }
-            int index = result.Length - 3;
+            int index = result.Length - 2;
             if (index > 0)
             {
-                result = result.Remove(result.Length - 3);
+                result = result.Remove(result.Length - 2);
             }
             return result;
         }

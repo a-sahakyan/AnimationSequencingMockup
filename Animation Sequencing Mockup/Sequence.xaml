@@ -69,10 +69,10 @@
                     <FlowDocument Name="rtbFlowDoc2" PageWidth="{Binding ElementName=rtb2, Path=ActualWidth}" />
                 </RichTextBox>
                 <StackPanel>
-                    <Button Content="Browse Image" />
-                    <Image Grid.Row="7" VerticalAlignment="Bottom" Height="100" Grid.Column="1" />
+                    <Button Content="Browse Image" Click="Button_Click" />
+                    <Image x:Name="image" Grid.Row="7" VerticalAlignment="Bottom" Height="100" Grid.Column="1" />
                 </StackPanel>
-                <TextBox />
+                <TextBox x:Name="keywords" />
             </StackPanel>
         </GroupBox>
     </Grid>

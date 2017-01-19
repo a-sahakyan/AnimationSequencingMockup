@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -49,6 +48,8 @@ namespace Animation_Sequencing_Mockup
         public VoiceMusic VoiceMusic { get; set; }
         public double Energy { get; set; }
         public string Description { get; set; }
+        public string ImageSource { get; set; }
+        public string Keywords { get; set; }
     }
     public class GroupInstance
     {
@@ -92,7 +93,7 @@ namespace Animation_Sequencing_Mockup
         public string Link { get; set; }
         public List<string> Style { get; set; }
         public string Type { get; set; }
-        public uint TotalTime { get; set; }
+        public double TotalTime { get; set; }
         public List<string> TargetAudience { get; set; }
         public List<string> Purpose { get; set; }
         public List<string> VoiceOver { get; set; }
@@ -109,6 +110,195 @@ namespace Animation_Sequencing_Mockup
         public MainWindow()
         {
             InitializeComponent();
+            isEdit = false;
+            editData = null;
+        }
+
+        private bool isEdit = false;
+        private Data editData = null;
+        public MainWindow(Data data)
+        {
+            InitializeComponent();
+            isEdit = true;
+            show_data.Visibility = Visibility.Hidden;
+            editData = data;
+            if (data != null)
+            {
+                title.Text = data.Title;
+                link.Text = data.Link;
+                
+                // style
+                var elements = style.Children;
+                foreach (var e in elements)
+                {
+                    CheckBox c = e as CheckBox;
+                    if (data.Style.Contains(c.Content.ToString()))
+                    {
+                        c.IsChecked = true;
+                    }
+                }
+
+                // type
+                ListBox typeListBox = type as ListBox;
+                foreach (ListBoxItem item in typeListBox.Items)
+                {
+                    if (item.Content.ToString() == data.Type)
+                    {
+                        typeListBox.SelectedItem = item;
+                    }
+                }
+
+                // total time
+                try
+                {
+                    total_time.Value = data.TotalTime;
+                }
+                catch(Exception ex)
+                { }
+
+                // target audience
+                elements = target_audience.Children;
+                foreach (var e in elements)
+                {
+                    CheckBox c = e as CheckBox;
+                    if (data.TargetAudience.Contains(c.Content.ToString()))
+                    {
+                        c.IsChecked = true;
+                    }
+                }
+
+                // purpose
+                elements = purpose.Children;
+                foreach (var e in elements)
+                {
+                    CheckBox c = e as CheckBox;
+                    if (data.Purpose.Contains(c.Content.ToString()))
+                    {
+                        c.IsChecked = true;
+                    }
+                }
+
+                // voice over
+                elements = voiceover.Children;
+                foreach (var e in elements)
+                {
+                    CheckBox c = e as CheckBox;
+                    if (data.VoiceOver.Contains(c.Content.ToString()))
+                    {
+                        c.IsChecked = true;
+                    }
+                }
+
+                // music vfx
+                elements = music_vfx.Children;
+                foreach (var e in elements)
+                {
+                    CheckBox c = e as CheckBox;
+                    if (data.MusicVFX.Contains(c.Content.ToString()))
+                    {
+                        c.IsChecked = true;
+                    }
+                }
+
+                // global rating
+                ListBox grListBox = global_rating as ListBox;
+                foreach (ListBoxItem item in grListBox.Items)
+                {
+                    if (item.Content.ToString() == data.GlobalRating)
+                    {
+                        grListBox.SelectedItem = item;
+                    }
+                }
+
+                // color scheme
+                ListBox csc = color_scheme_color as ListBox;
+                ListBox csn = color_scheme_number as ListBox;
+                ListBox csy = color_scheme_yesno as ListBox;
+
+                foreach(ListBoxItem item in csc.Items)
+                {
+                    if (item.Content.ToString() == data.ColorScheme.Color)
+                    {
+                        csc.SelectedItem = item;
+                    }
+                }
+                foreach (ListBoxItem item in csn.Items)
+                {
+                    if (item.Content.ToString() == data.ColorScheme.Number)
+                    {
+                        csn.SelectedItem = item;
+                    }
+                }
+                foreach (ListBoxItem item in csy.Items)
+                {
+                    if (item.Content.ToString() == data.ColorScheme.YesNo)
+                    {
+                        csy.SelectedItem = item;
+                    }
+                }
+
+                // Sequences
+                foreach (var g in data.Groups)
+                {
+                    ParentGroup p = new ParentGroup();
+                    p.group.Header = g.Name;
+                    rootWrapPanel.Children.Add(p);
+                    foreach(var s in g.Sequences)
+                    {
+                        Sequence sequence = new Sequence();
+                        sequence.what.Text = s.What;
+                        sequence.from.Text = s.TimeSec.From;
+                        sequence.to.Text = s.TimeSec.To;
+                        sequence.duration.Text = s.TimeSec.Duration;
+
+                        ComboBox style = sequence.style;
+                        foreach (var item in style.Items)
+                        {
+                            CheckBox checkBox = (item as ComboBoxItem).Content as CheckBox;
+                            if (s.Style.Contains(checkBox.Content.ToString()))
+                            {
+                                checkBox.IsChecked = true;
+                            }
+                        }
+
+                        // voice list
+                        ListBox voiceOverListBox = sequence.voiceList as ListBox;
+                        foreach (ListBoxItem item in voiceOverListBox.Items)
+                        {
+                            if (item.Content.ToString() == s.VoiceMusic.Type)
+                            {
+                                voiceOverListBox.SelectedItem = item;
+                            }
+                        }
+
+                        sequence.voiceDropDown.Value = (int?)s.VoiceMusic.Level;
+                        sequence.energy.Value = (int?)s.Energy;
+                        //sequence.rtb2.SetValue()
+
+                        sequence.rtb2.Document.Blocks.Clear();
+                        sequence.rtb2.Document.Blocks.Add(new Paragraph(new Run(s.Description)));
+
+                        try
+                        {
+                            BitmapImage logo = new BitmapImage();
+                            logo.BeginInit();
+                            string home = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                            string directory = home + @"\AnimationSequencingData\Images\";
+                            logo.UriSource = new Uri(directory + s.ImageSource);
+                            logo.EndInit();
+                            sequence.image.Source = logo;
+                            sequence.ImageSource = s.ImageSource;
+                        }
+                        catch(Exception ex)
+                        {
+
+                        }
+
+                        sequence.keywords.Text = s.Keywords;
+                        p.rootWrapPanel.Children.Add(sequence);
+                    }
+                }
+            }
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -171,7 +361,7 @@ namespace Animation_Sequencing_Mockup
             //int count = wrapPanel1.Children.Count;
             //groupBox.Header = "Sequence" + count.ToString();
             //wrapPanel1.Children.Insert(wrapPanel1.Children.Count - 1, groupBox);
-
+            
             //foreach(var v in wrapPanel2.Children)
             //{
             //    if (v is GroupBox)
@@ -263,7 +453,7 @@ namespace Animation_Sequencing_Mockup
         private List<string> GetCheckedValues(UIElementCollection elements)
         {
             List<string> list = new List<string> { };
-            foreach (var e in elements)
+            foreach(var e in elements)
             {
                 CheckBox c = e as CheckBox;
                 if ((bool)c.IsChecked)
@@ -275,7 +465,7 @@ namespace Animation_Sequencing_Mockup
         }
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string home = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string directory = home + @"\AnimationSequencingData";
             string file = directory + @"\data.json";
             if (!Directory.Exists(directory))
@@ -289,11 +479,12 @@ namespace Animation_Sequencing_Mockup
                 content = reader.ReadToEnd();
                 reader.Close();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
 
             }
             List<Data> d = JsonConvert.DeserializeObject<List<Data>>(content);
+            
             Data data = new Data();
             if (d != null)
             {
@@ -311,7 +502,7 @@ namespace Animation_Sequencing_Mockup
             {
                 data.Type = (typeListBox.SelectedItem as ListBoxItem).Content.ToString();
             }
-            data.TotalTime = (uint)total_time.Value;
+            data.TotalTime = (double)total_time.Value;
             ListBox globalRating = global_rating as ListBox;
             if (globalRating.SelectedItem != null)
             {
@@ -335,15 +526,12 @@ namespace Animation_Sequencing_Mockup
             ListBox colorSchemeColor = color_scheme_color as ListBox;
             if (colorSchemeColor.SelectedItem != null)
             {
-                foreach (var item in colorSchemeColor.SelectedItems)
-                {
-                    data.ColorScheme.Color += (item as ListBoxItem).Content.ToString() + "\n";
-                }
+                data.ColorScheme.Color = (colorSchemeColor.SelectedItem as ListBoxItem).Content.ToString();
             }
 
             List<GroupInstance> groups = new List<GroupInstance> { };
             data.Groups = groups;
-
+            
             var child = rootWrapPanel.Children;
             for (int i = 1; i < child.Count; i++)
             {
@@ -374,7 +562,7 @@ namespace Animation_Sequencing_Mockup
                     ComboBox style = s.style;
                     // 5
                     List<string> styles = new List<string> { };
-                    foreach (var item in style.Items)
+                    foreach(var item in style.Items)
                     {
                         CheckBox c = (item as ComboBoxItem).Content as CheckBox;
                         if ((bool)c.IsChecked)
@@ -404,103 +592,54 @@ namespace Animation_Sequencing_Mockup
                     // 9
                     string description = textRange.Text;
                     sequenceInstance.Description = description;
+
+                    sequenceInstance.Keywords = s.keywords.Text;
+                    sequenceInstance.ImageSource = s.ImageSource;
                 }
             }
             if (d == null)
             {
                 d = new List<Data> { };
             }
-            d.Add(data);
+
+            if (isEdit)
+            {
+                data.Id = editData.Id;
+                //Data dd = null;
+                //foreach(var d1 in d)
+                //{
+                //    if (dd.Id == editData.Id)
+                //    {
+
+                //    }
+                //}
+                var d1 = d.FirstOrDefault(x => x.Id == editData.Id);
+                int index = d.IndexOf(d1);
+                d[index] = data;
+                //d1 = data;
+            }
+            else
+            {
+                d.Add(data);
+            }
             string output = JsonConvert.SerializeObject(d);
             StreamWriter writer = new StreamWriter(file);
             writer.Write(output);
             writer.Close();
-            MessageBox.Show("Your data has been successfully saved.");
+            if (isEdit)
+            {
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Your data has been successfully saved.");
+            }
         }
 
         private void Show_Data(object sender, RoutedEventArgs e)
         {
             DataView data = new DataView();
             data.ShowDialog();
-        }
-
-
-
-        private void AddData_Click(object sender, RoutedEventArgs e)
-        {
-            string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            string directory = home + @"\AnimationSequencingData";
-            string file = directory + @"\data.json";
-            string content = "";
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            try
-            {
-                StreamReader reader = new StreamReader(file);
-                content = reader.ReadToEnd();
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-
-            }
-            List<Data> d = JsonConvert.DeserializeObject<List<Data>>(content);
-            int count = 1;
-
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.DefaultExt = ".json";
-            string jsonFile = "";
-            Nullable<bool> result = dlg.ShowDialog();
-            if (result == true)
-            {
-                string fileName = dlg.FileName;
-
-                StreamReader sr = new StreamReader(fileName);
-                jsonFile = sr.ReadToEnd();
-                sr.Close();
-                List<Data> data = JsonConvert.DeserializeObject<List<Data>>(jsonFile);
-                if (data != null && d!=null)
-                {
-                    for (int i = 0; i < data.Count; i++)
-                    {
-                        data[i].Id = d[d.Count - 1].Id + count++;
-                    }
-                }
-                else
-                {
-                    Data newData = new Data();
-                    d = new List<Data>();
-                    d.Add(newData);
-                    d[0].Id = 1;
-                    d.Remove(newData);
-                }
-
-
-
-
-                if (data != null)
-                {
-                    foreach (var item in data)
-                    {
-
-                        d.Add(item);
-                    }
-                    string output = JsonConvert.SerializeObject(d);
-
-                    StreamWriter writer = new StreamWriter(file);
-                    writer.Write(output);
-                    writer.Close();
-                    MessageBox.Show("Your data has been successfully added.");
-
-                }
-                else
-                {
-                    MessageBox.Show("there is no data");
-                }
-            }
         }
     }
 }
