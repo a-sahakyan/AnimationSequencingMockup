@@ -93,7 +93,7 @@ namespace Animation_Sequencing_Mockup
         public string Link { get; set; }
         public List<string> Style { get; set; }
         public string Type { get; set; }
-        public double TotalTime { get; set; }
+        public uint TotalTime { get; set; }
         public List<string> TargetAudience { get; set; }
         public List<string> Purpose { get; set; }
         public List<string> VoiceOver { get; set; }
@@ -502,7 +502,7 @@ namespace Animation_Sequencing_Mockup
             {
                 data.Type = (typeListBox.SelectedItem as ListBoxItem).Content.ToString();
             }
-            data.TotalTime = (double)total_time.Value;
+            data.TotalTime = (uint)total_time.Value;
             ListBox globalRating = global_rating as ListBox;
             if (globalRating.SelectedItem != null)
             {
@@ -526,7 +526,11 @@ namespace Animation_Sequencing_Mockup
             ListBox colorSchemeColor = color_scheme_color as ListBox;
             if (colorSchemeColor.SelectedItem != null)
             {
-                data.ColorScheme.Color = (colorSchemeColor.SelectedItem as ListBoxItem).Content.ToString();
+                foreach (var item in colorSchemeColor.SelectedItems)
+                {
+                    data.ColorScheme.Color += (item as ListBoxItem).Content.ToString() + "\n";
+                }
+                
             }
 
             List<GroupInstance> groups = new List<GroupInstance> { };
@@ -640,6 +644,83 @@ namespace Animation_Sequencing_Mockup
         {
             DataView data = new DataView();
             data.ShowDialog();
+        }
+
+        private void AddData_Click(object sender, RoutedEventArgs e)
+        {
+            string home = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string directory = home + @"\AnimationSequencingData";
+            string file = directory + @"\data.json";
+            string content = "";
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            try
+            {
+                StreamReader reader = new StreamReader(file);
+                content = reader.ReadToEnd();
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            List<Data> d = JsonConvert.DeserializeObject<List<Data>>(content);
+            int count = 1;
+
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.DefaultExt = ".json";
+            string jsonFile = "";
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
+            {
+                string fileName = dlg.FileName;
+
+                StreamReader sr = new StreamReader(fileName);
+                jsonFile = sr.ReadToEnd();
+                sr.Close();
+                List<Data> data = JsonConvert.DeserializeObject<List<Data>>(jsonFile);
+                if (data != null && d != null)
+                {
+                    for (int i = 0; i < data.Count; i++)
+                    {
+                        data[i].Id = d[d.Count - 1].Id + count++;
+                    }
+                }
+                else
+                {
+                    Data newData = new Data();
+                    d = new List<Data>();
+                    d.Add(newData);
+                    d[0].Id = 1;
+                    d.Remove(newData);
+                }
+
+
+
+
+                if (data != null)
+                {
+                    foreach (var item in data)
+                    {
+
+                        d.Add(item);
+                    }
+                    string output = JsonConvert.SerializeObject(d);
+
+                    StreamWriter writer = new StreamWriter(file);
+                    writer.Write(output);
+                    writer.Close();
+                    MessageBox.Show("Your data has been successfully added.");
+
+                }
+                else
+                {
+                    MessageBox.Show("there is no data");
+                }
+            }
         }
     }
 }
