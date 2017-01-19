@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="Animation_Sequencing_Mockup.Sequence"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Animation_Sequencing_Mockup"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <GroupBox x:Name="sequence" Header="Sequence">
+            <StackPanel Width="Auto">
+                <TextBox x:Name="what" />
+                <WrapPanel>
+                    <TextBlock Text="from" />
+                    <TextBox x:Name="from" Width="30" />
+                    <TextBlock Text="to" />
+                    <TextBox x:Name="to" Width="30" />
+                    <TextBlock Text=", duration" />
+                    <TextBox x:Name="duration" Width="30" />
+                </WrapPanel>
+                <ComboBox x:Name="style" Text="Style" IsEditable="True">
+                    <ComboBoxItem>
+                        <CheckBox Content="2D" />
+                    </ComboBoxItem>
+                    <ComboBoxItem >
+                        <CheckBox Content="3D" />
+                    </ComboBoxItem>
+                    <ComboBoxItem >
+                        <CheckBox Content="Infographic" />
+                    </ComboBoxItem>
+                    <ComboBoxItem >
+                        <CheckBox Content="Whiteboard" />
+                    </ComboBoxItem>
+                    <ComboBoxItem >
+                        <CheckBox Content="Live Action" />
+                    </ComboBoxItem>
+                    <ComboBoxItem >
+                        <CheckBox Content="Typography" />
+                    </ComboBoxItem>
+                    <ComboBoxItem >
+                        <CheckBox Content="Application Promo" />
+                    </ComboBoxItem>
+                    <ComboBoxItem >
+                        <CheckBox Content="Screencast" />
+                    </ComboBoxItem>
+                </ComboBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <WrapPanel Grid.Column="0">
+                        <Border BorderBrush="#c2c3c9" BorderThickness="1" Padding="2" Grid.Column="0" Grid.Row="1">
+                            <ListBox x:Name="voiceList">
+                                <ListBoxItem Content="narator" />
+                                <ListBoxItem Content="male voice actor" />
+                                <ListBoxItem Content="female voice actor" />
+                            </ListBox>
+                        </Border>
+                    </WrapPanel>
+                    <StackPanel Grid.Column="1">
+                        <xctk:IntegerUpDown x:Name="voiceDropDown" Value="1" Increment="1" Maximum="10" Minimum="1" />
+                    </StackPanel>
+                </Grid>
+                <xctk:IntegerUpDown x:Name="energy" Grid.Row="5" Grid.Column="1" Value="0" Increment="1" Maximum="5" Minimum="-5" />
+
+                <RichTextBox x:Name="rtb2" Height="70" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                    <FlowDocument Name="rtbFlowDoc2" PageWidth="{Binding ElementName=rtb2, Path=ActualWidth}" />
+                </RichTextBox>
+                <StackPanel>
+                    <Button Content="Browse Image" Click="Button_Click" />
+                    <Image x:Name="image" Grid.Row="7" VerticalAlignment="Bottom" Height="100" Grid.Column="1" />
+                </StackPanel>
+                <TextBox x:Name="keywords" />
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</UserControl>

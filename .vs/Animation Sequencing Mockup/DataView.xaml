@@ -1,0 +1,38 @@
+﻿<Window x:Class="Animation_Sequencing_Mockup.DataView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Animation_Sequencing_Mockup"
+        xmlns:helpers="clr-namespace:Animation_Sequencing_Mockup.Helpers"
+        mc:Ignorable="d"
+        x:Name="dataView"
+        Title="DataView" Height="500" Width="1000">
+    <Window.Resources>
+        <helpers:ListConverter x:Key="ListConverter" />
+        <helpers:ColorSchemeConverter x:Key="ColorSchemeConverter" />
+    </Window.Resources>
+    <Grid>
+        <DataGrid x:Name="dataGrid" ItemsSource="{Binding Data}" AutoGenerateColumns="False">
+            <DataGrid.ContextMenu>
+                <ContextMenu >
+                    <MenuItem Header="Edit Data" Click="MenuItem_Click"  />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="*" Binding="{Binding Path=Id}" />
+                <DataGridTextColumn Header="Title" Width="*" Binding="{Binding Path=Title}" />
+                <DataGridTextColumn Header="Link" Width="*" Binding="{Binding Path=Link}" />
+                <DataGridTextColumn Header="Style" Width="*" Binding="{Binding Path=Style, Converter={StaticResource ListConverter}}" />
+                <DataGridTextColumn Header="Type" Width="*" Binding="{Binding Path=Type}" />
+                <DataGridTextColumn Header="TotalTime" Width="*" Binding="{Binding Path=TotalTime}" />
+                <DataGridTextColumn Header="TargetAudience" Width="*" Binding="{Binding Path=TargetAudience, Converter={StaticResource ListConverter}}" />
+                <DataGridTextColumn Header="Purpose" Width="*" Binding="{Binding Path=Purpose, Converter={StaticResource ListConverter}}" />
+                <DataGridTextColumn Header="VoiceOver" Width="*" Binding="{Binding Path=VoiceOver, Converter={StaticResource ListConverter}}" />
+                <DataGridTextColumn Header="MusicVFX" Width="*" Binding="{Binding Path=MusicVFX, Converter={StaticResource ListConverter}}" />
+                <DataGridTextColumn Header="GlobalRating" Width="*" Binding="{Binding Path=GlobalRating}" />
+                <DataGridTextColumn Header="ColorScheme" Width="*" Binding="{Binding Path=ColorScheme, Converter={StaticResource ColorSchemeConverter}}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
